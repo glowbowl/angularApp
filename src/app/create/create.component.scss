@@ -1,0 +1,35 @@
+.container{
+    display: flex;
+    height: 100%;
+
+    margin: 0 auto;
+    flex-direction: row;
+}
+
+.sidebar{
+    //margin: 0 auto;
+    flex-grow: 1;
+    flex-shrink: 0;
+    //border: 3px solid black;
+    border-right: 1px solid #27272780;
+    flex-basis: 110px;
+    .menu{
+        margin: 0 auto;
+        h1{
+            //padding: 0 0 0 1em;
+            font-size: 20px;
+            display: flex;
+            font-weight: lighter;
+            color: grey;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+    }
+}
+
+.main{
+    flex-grow: 8;
+    //border: 3px solid black;
+    
+}
+

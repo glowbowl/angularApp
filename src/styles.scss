@@ -1,1 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
+$primary: whitesmoke;
+
+body {
+    background-color: $primary;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+}
+
+.page{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    header{
+        box-shadow: 0px 1px 5px #27272780;
+        //border: 3px solid green;
+        padding: 1em 0;
+
+        .container-header {
+            width: 90%;
+            margin: 0 auto;
+
+            a{
+                color: grey;
+                text-decoration: none;
+                
+            }
+            .logo{
+                font-weight: bolder;
+            }
+
+            nav{
+                float: right;
+                
+                ul{
+                    display: flex;
+                    list-style-type: none;
+                    margin: 0;
+                    justify-content: flex-end;
+                    
+                    li a{
+                        padding: 1em;
+                        &:hover{
+                            color: darken(grey, 25%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .container {
+        //border: 3px solid green;
+        margin: 0 auto;
+        width: 100%;
+        flex-grow: 3;
+    }
+
+    footer{
+        border-top: 1px solid #27272780;
+        h1{
+            display: flex;
+            font-weight: lighter;
+            color: grey;
+            justify-content: center;
+        }
+    }
+}
