@@ -1,10 +1,178 @@
 <div class="container">
     <div class="sidebar">
-        <div class="menu">
-            <h1>Create user</h1>
+        <div class="menu" *ngIf="nextFormControl === false">
+            <h1>Create user</h1><br>
+            <h1>Main info</h1>
+        </div>
+        <div class="menu" *ngIf="nextFormControl === true">
+            <h1>Create user</h1><br>
+            <h1>Additional info</h1>
         </div>
     </div>
-    <div class="main">
-        
+
+    
+    <div class="main" >
+        <form [formGroup]="ProfileForm" (ngSubmit)="onSubmit(ProfileForm.value)">
+            
+            <!-- Main Info Form -->
+
+            <div class="column" *ngIf="nextFormControl === false && summaryFormControl === false">
+                <div class="field1">
+
+                    <label for="firstNameOption">First Name:</label>
+                    <input [ngClass]="{ 'is-invalid': firstName.invalid && firstName.touched }" type="text" placeholder="Name" id="firstNameOption" formControlName="firstName">
+                    <div *ngIf="(firstName.invalid && firstName.touched) || firstName.dirty" class="text-danger">
+                        <small *ngIf="firstName.errors?.required">First Name is required</small>
+                    </div>
+
+                    <label for="lastNameOption">Last Name:</label>
+                    <input [ngClass]="{ 'is-invalid': lastName.invalid && lastName.touched }" type="text" placeholder="Last Name" id="lastNameOption" formControlName="lastName">
+                    <div *ngIf="(lastName.invalid && lastName.touched) || lastName.dirty" class="text-danger">
+                        <small *ngIf="lastName.errors?.required">Last Name is required</small>
+                    </div>
+
+                    <label for="nicknameOption">Nickname:</label>
+                    <input [ngClass]="{ 'is-invalid': nickname.invalid && nickname.touched }" type="text" placeholder="Nickname" id="nicknameOption" formControlName="nickname">
+                    <div *ngIf="(nickname.invalid && nickname.touched) || nickname.dirty" class="text-danger">
+                        <small *ngIf="nickname.errors?.required">Nickname is required</small>
+                        <small *ngIf="nickname.errors?.minlength">Nickname must be at least 6 characters</small>
+                    </div>
+
+                    <label for="phoneOption">Phone:</label>
+                    <input [ngClass]="{ 'is-invalid': phone.invalid && phone.touched }" type="tel" placeholder="Phone" id="phoneOption" formControlName="phone">
+                    <div *ngIf="(phone.invalid && phone.touched) || phone.dirty" class="text-danger">
+                        <small *ngIf="phone.errors?.required">Phone is required</small>
+                        <small *ngIf="phone.errors?.pattern">Please provide a valid phone</small>
+                        <small *ngIf="phone.errors?.minlength">Phone must be at least 5 characters</small>
+                        <small *ngIf="phone.errors?.maxlength">Phone can't be longer than 10 characters</small>
+                    </div>
+
+                    <label for="emailOption">Email:</label>
+                    <input [ngClass]="{ 'is-invalid': email.invalid && email.touched }" type="email" placeholder="Email" id="emailOption" formControlName="email">
+                    <div *ngIf="(email.invalid && email.touched) || email.dirty" class="text-danger">
+                        <small *ngIf="email.errors?.required" >Email is required</small>
+                        <small *ngIf="email.errors?.pattern" >Please provide a valid email address</small>
+                    </div>
+
+                    <div class="password">
+                        <div class="field-pass">
+                            <label for="passOption">Password:</label><br>
+                            <input [ngClass]="{ 'is-invalid': password.invalid && password.touched }" type="password" placeholder="Password" id="passOption" formControlName="password">
+                            <div *ngIf="(password.invalid && password.touched) || password.dirty" class="text-danger">
+                                <small *ngIf="password.errors?.required">Password is required</small>
+                                <small *ngIf="password.errors?.minlength">Password must be at least 6 characters</small>
+                            </div>
+                        </div>
+
+                        <div class="field-pass">
+                            <label for="rePassOption">Repeat Password:</label><br>
+                            <input [ngClass]="{ 'is-invalid': confirmPassword.invalid && confirmPassword.touched }" type="password" placeholder="Password" id="rePassOption" formControlName="confirmPassword" >
+                            <div *ngIf="(confirmPassword.invalid && confirmPassword.touched) || confirmPassword.dirty" class="text-danger">
+                                <small *ngIf="confirmPassword.errors?.required">Password is required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field-btn">
+                        <button (click)="nextForm()" [disabled]="false">Next</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Info Form -->
+
+            <div class="column" *ngIf="nextFormControl === true && summaryFormControl === false">
+                <div class="field2">
+                    <select formControlName="addressType" (change)="onSelectChange()">
+                        <option value="" disabled selected hidden>Address Type</option>
+                        <option value="Billing Address">Billing Address</option>
+                        <option value="Shipment Address">Shipment Address</option>
+                        <option value="Home Address">Home Address</option>
+                    </select>
+                    <input [ngClass]="{ 'is-invalid': address.invalid && address.touched }" type="text" placeholder="Address" formControlName="address">
+                    <div *ngIf="(address.invalid && address.touched) || address.dirty" class="text-danger">
+                        <small *ngIf="address.errors?.required">Address is required</small>
+                    </div>
+                    <select  formControlName="country" (change) ="onSelectChange()">
+                        <option value="" disabled selected hidden>Country</option>
+                        <option *ngFor="let country of allCountries"  [value]="country.name" ><span>{{country.name}}</span></option>
+                    </select>
+                    <input [ngClass]="{ 'is-invalid': postalCode.invalid && postalCode.touched }" type="text" placeholder="Postal Code" formControlName="postalCode">
+                    <div *ngIf="(postalCode.invalid && postalCode.touched) || postalCode.dirty" class="text-danger">
+                        <small *ngIf="postalCode.errors?.required">Postal Code is required</small>
+                        <small *ngIf="postalCode.errors?.pattern">Please provide a valid postal code</small><br>
+                        <small *ngIf="postalCode.errors?.minlength">Postal Code must be at least 4 characters</small>
+                    </div>
+                    <div class="field-btn">
+                        <button (click)="nextForm()">Previous</button>
+                        <button (click)="showSummary()">Show Summary</button>
+                    </div>
+                    <!-- <input type="reset" value="N"> -->
+                </div>
+            </div>
+
+            <!-- Summary -->
+
+            <div class="column" *ngIf="summaryFormControl === true">
+                <div class="field1">
+            
+                    <label for="firstNameOption">First Name:</label>
+                    <input type="text" placeholder="Name"
+                        id="firstNameOption" formControlName="firstName" readonly>
+            
+                    <label for="lastNameOption">Last Name:</label>
+                    <input type="text" placeholder="Last Name"
+                        id="lastNameOption" formControlName="lastName" readonly>
+            
+                    <label for="nicknameOption">Nickname:</label>
+                    <input type="text" placeholder="Nickname"
+                        id="nicknameOption" formControlName="nickname" readonly>
+            
+                    <label for="phoneOption">Phone:</label>
+                    <input type="tel" placeholder="Phone"
+                        id="phoneOption" formControlName="phone" readonly>
+            
+                    <label for="emailOption">Email:</label>
+                    <input type="email" placeholder="Email"
+                        id="emailOption" formControlName="email" readonly>
+                </div>
+
+                <div class="field2">
+                    <select formControlName="addressType" (change)="onSelectChange()" disabled>
+                        <option value="" disabled selected hidden>Address Type</option>
+                        <option value="Billing Address">Billing Address</option>
+                        <option value="Shipment Address">Shipment Address</option>
+                        <option value="Home Address">Home Address</option>
+                    </select>
+                    <input type="text" placeholder="Address"
+                        formControlName="address" readonly>
+
+                    <select formControlName="country" (change)="onSelectChange()" disabled>
+                        <option value="" disabled selected hidden>Country</option>
+                        <option *ngFor="let country of allCountries" [value]="country.name"><span>{{country.name}}</span></option>
+                    </select>
+                    <input  type="text" placeholder="Postal Code"
+                        formControlName="postalCode" readonly>
+                    <div class="field-btn">
+                        <button routerLink="">Cancel</button>
+                        <button type="submit" [disabled]="!ProfileForm.valid">Save</button>
+                        <button (click)="updD()">submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
+<!-- <home-component [userInfo] = "user" (usrAdd) = "onUserAdd($event)"></home-component> -->
+
+<!-- Home component -->
+<!-- <div class="row"> -->
+    <!-- <ul>
+        <li>
+            {{userInfo.name}}
+        </li>
+        <li>
+            {{userInfo.surName}}
+        </li>
+    </ul>
+</div> -->

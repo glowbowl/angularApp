@@ -6,10 +6,11 @@
     </div>
     <div class="main">
         <div class="main-greeting">
-            <h1>Hello!</h1>    
+            <h1>Hello </h1>
+            <h1 *ngIf="auth.userData">{{items.payload.doc.data().firstName}}</h1>
             <div class="nav">
-                <span >Log in</span>
-                <span >Sign up</span>
+                <span routerLink="login">Log in</span>
+                <span routerLink="create">Sign up</span>
             </div>
         </div>
     </div>

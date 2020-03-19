@@ -7,7 +7,6 @@
 }
 
 .sidebar{
-    //margin: 0 auto;
     flex-grow: 1;
     flex-shrink: 0;
     //border: 3px solid black;
@@ -30,6 +29,132 @@
 .main{
     flex-grow: 8;
     //border: 3px solid black;
-    
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        .column{
+            color: darken(grey, 20%);
+            width: 60%;
+            .field1{
+                margin: 20px auto;
+                display: flex;
+                flex-direction: column;
+                input {
+                    margin: 15px 0;
+                    border-radius: 10px;
+                    border-width: 1px;
+                    border-style: solid;
+                    padding: 10px;
+                    outline: 0;
+                    font-size: 0.95em;
+                    background: #fff;
+                    border-color: #bbb;
+                    color: #555;
+                    &:focus{
+                        border-color: darken(#bbb, 20%);
+                        box-shadow: 0 0 3px 1px lighten(rgb(0, 68, 255), 20%);
+                    }
+                }
+
+                .is-invalid{
+                    box-shadow: 0 0 3px 1px red;
+                }
+                .text-danger{
+                    color: red;
+                    margin-bottom: 10px;
+                }
+                .password{
+                    
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+
+                    .field-pass{
+                        width: 80%;
+
+                    }
+                    input{
+                        width: inherit;
+                    }
+                }
+                
+                .field-btn{
+                    margin: 20px 0;
+                    display: flex;
+                    justify-content: flex-end;
+                    button{
+                        margin: 0 10px;
+                        background: #28d;
+                        border-radius: 10px;
+                        border-color: transparent;
+                        color: #fff;
+                        cursor: pointer;
+                        border-width: 1px;
+                        border-style: solid;
+                        padding: 16px;
+                        outline: 0;
+                        font-family: inherit;
+                        &:hover{
+                            background: darken(#28d,15%);
+                        }
+                    }
+                }
+            }
+
+            .field2{
+                margin: 20px auto;
+                display: flex;
+                flex-direction: column;
+                select, input{
+                    margin: 15px 0;
+                    border-width: 0px;
+                    border-bottom: 1px;
+                    border-style: solid;
+                    padding: 10px;
+                    outline: 0;
+                    font-size: 0.95em;
+                    background: inherit;
+                    border-color: #bbb;
+                    font-family: inherit;
+                    color: #555;
+                    &:focus{
+                        border-color: darken(#bbb, 20%);
+                    }
+                }
+
+                .is-invalid{
+                    box-shadow: 0 0 3px 1px red;
+                }
+                .text-danger{
+                    color: red;
+                    margin-bottom: 10px;
+                }
+                .field-btn{
+                    margin: 20px 0;
+                    display: flex;
+                    justify-content: flex-end;
+                    button, input{
+                        margin: 0 10px;
+                        background: #28d;
+                        border-radius: 10px;
+                        border-color: transparent;
+                        color: #fff;
+                        cursor: pointer;
+                        border-width: 1px;
+                        border-style: solid;
+                        padding: 16px;
+                        outline: 0;
+                        font-family: inherit;
+                        &:hover{
+                            background: darken(#28d,15%);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 

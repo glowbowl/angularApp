@@ -4,15 +4,18 @@
       <a routerLink="/" class="logo">Test App</a>
       <nav>
         <ul>
-          <li><a href="#" routerLink="/">Main</a></li>
-          <li><a href="#" routerLink="/create">Sign up</a></li>
+          <li><a href="#" routerLink="">Main</a></li>
+          <li *ngIf="!auth.userData"><a href="#" routerLink="create">Sign up</a></li>
+          <li *ngIf="auth.userData"><a href="#" (click)="auth.SignOut()">Logout</a></li>
         </ul>
       </nav>
   </div>
 </header>
+
 <div class="container">
   <router-outlet></router-outlet>
 </div>
+
 <footer>
   <h1>Foooter</h1>
 </footer>
