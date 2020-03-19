@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import {  Countries, User } from '../models/models';
+import {  Countries } from '../models/models';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 import { AuthService } from "../shared/services/auth.service";
 import { FirebaseService } from '../shared/services/firebase.service';
@@ -123,7 +123,7 @@ export class CreateComponent implements OnInit {
   }
 
   onSelectChange() {
-    let us = this.firebaseService.getUser(this.authService.userData.uid);
+    //let us = this.firebaseService.getUser(this.authService.userData.uid);
 
     //console.log(us.firstName);
 
@@ -134,15 +134,12 @@ export class CreateComponent implements OnInit {
 
 
   onSubmit(value) {
-    console.log( this.ProfileForm.value.email, "Value");
-    this.authService.SignUp(this.ProfileForm.value.email, this.ProfileForm.value.password);
+    //console.log( this.ProfileForm.value.email, "Value");
+    this.authService.SignUp(this.ProfileForm.value.email, this.ProfileForm.value.password, value);
     // this.firebaseService.createUser(value).then(res => {
     //   this.resetFields();
     //   this.router.navigate(["/"]);
     // });
-  }
-  updD(){
-    this.firebaseService.updateUser(this.authService.userData.uid, this.ProfileForm.value);
   }
 
 

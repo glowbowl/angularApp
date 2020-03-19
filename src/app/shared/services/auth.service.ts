@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from "../../models/models";
+import { UserSignIn, UserSignUp } from "../../models/models";
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
@@ -13,7 +13,6 @@ export class AuthService {
     userData: any; // Save logged in user data
 
     constructor(
-        private _router: Router,
         public afs: AngularFirestore,   // Inject Firestore service
         public afAuth: AngularFireAuth, // Inject Firebase auth service
         public router: Router,
@@ -33,25 +32,25 @@ export class AuthService {
         })
     }
 
-    // Sign in with email/password
     SignIn(email, password) {
         return this.afAuth.auth.signInWithEmailAndPassword(email, password)
             .then((result) => {
-                this.ngZone.run(() => {
-                    this.router.navigate(['info']);
-                });
-                this.SetUserData(result.user);
+                // this.ngZone.run(() => {
+                    //     this.router.navigate(['info']);
+                    // });
+                this.SetUserDataSignIn(result.user);
+                this.router.navigate(['/info']);
             })
             .catch((error) => {
                 window.alert(error.message)
             })
     }
 
-    // Sign up with email/password
-    SignUp(email, password) {
+    SignUp(email, password, value) {
         return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
             .then((result) => {
-                this.SetUserData(result.user);
+                this.router.navigate(['']);
+                this.SetUserDataSignUp(result.user, value);
             }).catch((error) => {
                 window.alert(error.message)
             })
@@ -62,25 +61,52 @@ export class AuthService {
         return (user !== null) ? true : false;
     }
 
-
-    //Auth logic to run auth providers
-    AuthLogin(provider) {
-        return this.afAuth.auth.signInWithPopup(provider)
-            .then((result) => {
-                this.ngZone.run(() => {
-                    this.router.navigate(['info']);
-                })
-                this.SetUserData(result.user);
-            }).catch((error) => {
-                window.alert(error)
-            })
-    }
-
-    SetUserData(user) {
+    SetUserDataSignIn(user) {
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-        const userData: User = {
+        const userData: UserSignIn = {
             uid: user.uid,
             email: user.email,
+        }
+        return userRef.set(userData, {
+            merge: true
+        })
+    }
+
+    SetUserDataSignUp(user, value) {
+        const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+        const userData: UserSignUp = {
+            uid: user.uid,
+            email: user.email,
+
+            firstName: value.firstName,
+            lastName: value.lastName,
+            nickname: value.nickname,
+            phone: value.phone,
+            addressType: value.nickname,
+            address: value.address,
+            country: value.country,
+            postalCode: value.postalCode,
+        }
+        return userRef.set(userData, {
+            merge: true
+        })
+    }
+
+    getUserData() {
+        return this.afs.collection(`users`).snapshotChanges();
+    }
+
+    updateUser(user, value) {
+        const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+        const userData  = {
+            firstName: value.firstName,
+            lastName: value.lastName,
+            nickname: value.nickname,
+            phone: value.phone,
+            addressType: value.nickname,
+            address: value.address,
+            country: value.country,
+            postalCode: value.postalCode,
         }
         return userRef.set(userData, {
             merge: true
@@ -92,9 +118,9 @@ export class AuthService {
         return this.afAuth.auth.signOut().then(() => {
             localStorage.removeItem('user');
             //this.router.navigate(['']);
-            this._router.routeReuseStrategy.shouldReuseRoute = () => false;
-            this._router.onSameUrlNavigation = 'reload';
-            this._router.navigate(['']);
+            this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+            this.router.onSameUrlNavigation = 'reload';
+            this.router.navigate(['/login']);
         })
     }
 

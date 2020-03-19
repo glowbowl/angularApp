@@ -1,1 +1,14 @@
-<p>info works!</p>
+<div class="container">
+    <div class="sidebar">
+        <div class="menu">
+            <h1>Info page</h1>
+        </div>
+    </div>
+    <div class="main">
+        <div class="main-greeting">
+            <div class="greeting-personalized" *ngFor="let item of items">
+                <h1 >{{ item.payload.doc.data().firstName }}</h1><br>
+            </div>
+        </div>
+    </div>
+</div>

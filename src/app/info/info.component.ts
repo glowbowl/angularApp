@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-info',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InfoComponent implements OnInit {
 
-  constructor() { }
+  items: Array<any>;
+
+  constructor(public auth: AuthService) { }
 
   ngOnInit(): void {
+    this.auth.getUserData()
+      .subscribe(result => {
+        if (result) {
+          this.items = result;
+        }
+        else {
+          this.items = null;
+        }
+      })
   }
 
 }

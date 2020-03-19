@@ -1,15 +1,20 @@
-export interface User {
+export interface UserSignUp {
     uid: string;
-    //firstName: string;
-    //lastName: string;
-    //nickname: string;
-    //phone: string;
+    firstName: string;
+    lastName: string;
+    nickname: string;
+    phone: string;
     email: string;
     //password: string;
-    //addressType: string;
-    //address: string;
-    //country: string;
-    //postalCode: string;
+    addressType: string;
+    address: string;
+    country: string;
+    postalCode: string;
+}
+
+export interface UserSignIn {
+    uid: string;
+    email: string;
 }
 
 // export namespace CountriesNamespace{

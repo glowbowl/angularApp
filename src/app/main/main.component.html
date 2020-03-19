@@ -4,13 +4,17 @@
             <h1>Main page</h1>
         </div>
     </div>
-    <div class="main">
-        <div class="main-greeting">
-            <h1>Hello </h1>
-            <h1 *ngIf="auth.userData">{{items.payload.doc.data().firstName}}</h1>
+    <div class="main" >
+        <div class="main-greeting" >
+            <div class="greeting-personalized" *ngIf="auth.userData">
+                <h1>Hello, {{auth.userData.email}}!</h1>
+            </div>
+                <h1 *ngIf="!auth.userData">Hello, stranger!</h1>
+            <!-- <h1 *ngIf="auth.userData">{{items.payload.doc.data().firstName}}</h1> -->
             <div class="nav">
-                <span routerLink="login">Log in</span>
-                <span routerLink="create">Sign up</span>
+                <span *ngIf="!auth.userData" routerLink="login">Log in</span>
+                <span *ngIf="auth.userData" routerLink="info">Info DB</span>
+                <span *ngIf="!auth.userData" routerLink="create">Sign up</span>
             </div>
         </div>
     </div>

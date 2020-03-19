@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class FirebaseService {
 
-    constructor(public db: AngularFirestore) { }
+    constructor(public db: AngularFirestore,) { }
 
     getUser(userKey) {
         return new Promise<any>((resolve, reject) => {
