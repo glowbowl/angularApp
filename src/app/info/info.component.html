@@ -5,9 +5,66 @@
         </div>
     </div>
     <div class="main">
-        <div class="main-greeting">
-            <div class="greeting-personalized" *ngFor="let item of items">
-                <h1 >{{ item.payload.doc.data().firstName }}</h1><br>
+        <div class="main-info">
+            <form [formGroup]="SearchForm" (ngSubmit)="onSubmit(SearchForm.value)">
+                <div class="column">
+                    <div class="field">
+                        <label for="nicknameOption">Nickname:</label>
+                        <input [ngClass]="{ 'is-invalid': nickname.invalid && nickname.touched }" type="text" placeholder="Nickname"
+                            id="nicknameOption" formControlName="nickname">
+                        <div *ngIf="(nickname.invalid && nickname.touched) || nickname.dirty" class="text-danger">
+                            <small *ngIf="nickname.errors?.required">Nickname is required</small>
+                            <small *ngIf="nickname.errors?.minlength">Nickname must be at least 6 characters</small>
+                        </div>
+
+                        <label for="phoneOption">Phone:</label>
+                        <input [ngClass]="{ 'is-invalid': phone.invalid && phone.touched }" type="tel" placeholder="Phone" id="phoneOption"
+                            formControlName="phone">
+                        <div *ngIf="(phone.invalid && phone.touched) || phone.dirty" class="text-danger">
+                            <small *ngIf="phone.errors?.required">Phone is required</small>
+                            <small *ngIf="phone.errors?.pattern">Please provide a valid phone</small>
+                            <small *ngIf="phone.errors?.minlength">Phone must be at least 5 characters</small>
+                            <small *ngIf="phone.errors?.maxlength">Phone can't be longer than 10 characters</small>
+                        </div>
+
+                        <label for="emailOption">Email:</label>
+                        <input [ngClass]="{ 'is-invalid': email.invalid && email.touched }" type="email" placeholder="Email" id="emailOption"
+                            formControlName="email">
+                        <div *ngIf="(email.invalid && email.touched) || email.dirty" class="text-danger">
+                            <small *ngIf="email.errors?.required">Email is required</small>
+                            <small *ngIf="email.errors?.pattern">Please provide a valid email address</small>
+                        </div>
+
+                        <div class="field-btn">
+                            <button (click)="SearchForm.reset()">Clear</button>
+                            <button type="submit" [disabled]="!SearchForm.valid">Find</button>
+                        </div>
+                    <!-- <input type="reset" value="N"> -->
+                    </div>
+                </div>
+            </form>
+            <div>
+                <tbody class="primary-table">
+                    <tr class="table-names">
+                        <td>First Name</td>
+                        <td>Last Name</td>
+                        <td>Nickname</td>
+                        <td>Phone</td>
+                        <td>Email</td>
+                        <td>Action</td>
+                    </tr>
+                    <tr *ngFor="let item of items">
+                        <td>{{ item.payload.doc.data().firstName }}</td>
+                        <td>{{ item.payload.doc.data().lastName }}</td>
+                        <td>{{ item.payload.doc.data().nickname }}</td>
+                        <td>{{ item.payload.doc.data().phone }}</td>
+                        <td>{{ item.payload.doc.data().email }}</td>
+                        <td>
+                            <button (click)="log(item.payload.doc.data().firstName)">Update</button>
+                            <button (click)="log(item.payload.doc.data().nickname)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
             </div>
         </div>
     </div>

@@ -134,12 +134,7 @@ export class CreateComponent implements OnInit {
 
 
   onSubmit(value) {
-    //console.log( this.ProfileForm.value.email, "Value");
     this.authService.SignUp(this.ProfileForm.value.email, this.ProfileForm.value.password, value);
-    // this.firebaseService.createUser(value).then(res => {
-    //   this.resetFields();
-    //   this.router.navigate(["/"]);
-    // });
   }
 
 

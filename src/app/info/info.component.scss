@@ -7,12 +7,10 @@
 }
 
 .sidebar{
-    //margin: 0 auto;
-    flex-grow: 1;
     flex-shrink: 0;
     //border: 3px solid black;
     border-right: 1px solid #27272780;
-    flex-basis: 110px;
+    flex-basis: 200px;
     .menu{
         margin: 0 auto;
         h1{
@@ -28,14 +26,107 @@
 }
 
 .main{
-    flex-grow: 8;
+    flex-grow: 1;
     //border: 3px solid black;
-    .main-greeting{
+
+    .main-info{
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 100%;
+        //height: 100%;
+
+        form{
+        // display: flex;
+        // flex-direction: row;
+        // justify-content: center;
+        // align-items: center;
+        // height: 100%;
+        .column{
+            color: darken(grey, 20%);
+            width: 60%;
+            .field{
+                margin: 20px auto;
+                display: flex;
+                flex-direction: row;
+                select, input{
+                    margin: 15px 0;
+                    border-width: 0px;
+                    border-bottom: 1px;
+                    border-style: solid;
+                    padding: 10px;
+                    outline: 0;
+                    font-size: 0.95em;
+                    background: inherit;
+                    border-color: #bbb;
+                    font-family: inherit;
+                    color: #555;
+                    &:focus{
+                        border-color: darken(#bbb, 20%);
+                    }
+                }
+
+                .is-invalid{
+                    box-shadow: 0 0 3px 1px red;
+                }
+                .text-danger{
+                    color: red;
+                    margin-bottom: 10px;
+                }
+                .field-btn{
+                    margin: 20px 0;
+                    display: flex;
+                    justify-content: flex-end;
+                    button, input{
+                        margin: 0 10px;
+                        background: #28d;
+                        border-radius: 10px;
+                        border-color: transparent;
+                        color: #fff;
+                        cursor: pointer;
+                        border-width: 1px;
+                        border-style: solid;
+                        padding: 16px;
+                        outline: 0;
+                        font-family: inherit;
+                        &:hover{
+                            background: darken(#28d,15%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+        .primary-table{
+            box-shadow: 0px 1px 5px #27272780;
+            background-color: darken(white, 2%);
+
+            .table-names{
+                font-weight: bolder ;
+                background-color: white;
+            }
+            td{
+                padding: 10px 25px;
+            }
+            button{
+                box-shadow: 0px 1px 5px #27272780;
+                margin: 0 5px;
+                background: white;
+                border-radius: 10px;
+                border-color: transparent;
+                color: black;
+                cursor: pointer;
+                border-width: 1px;
+                border-style: solid;
+                padding: 10px;
+                outline: 0;
+                font-family: inherit;
+                &:hover{
+                    background: darken(white,15%);
+                }
+            }
+        }
         h1{
             font-size: 60px;
             color: darken(grey, 15%);
@@ -54,10 +145,6 @@
                     background-color: darken( lightgray, 10%);
                 }
             }
-        }
-        .greeting-personalized{
-            display: flex;
-            flex-direction: row;
         }
     }
 }

@@ -15,7 +15,6 @@ export class AppComponent {
   title = "angularApp";
   constructor(
     public auth: AuthService,
-    private router: Router,
   ){
     
     

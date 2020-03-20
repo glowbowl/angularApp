@@ -8,7 +8,7 @@ import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
   styleUrls: ['./login.component.scss'] })
 export class LoginComponent implements OnInit {
   LoginForm: FormGroup;
-  pass: string = "123123";
+
   constructor(public authService: AuthService) {}
 
   ngOnInit(): void {

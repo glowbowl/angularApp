@@ -8,11 +8,11 @@
 
 .sidebar{
     //margin: 0 auto;
-    flex-grow: 1;
+    //flex-grow: 1;
     flex-shrink: 0;
     //border: 3px solid black;
     border-right: 1px solid #27272780;
-    flex-basis: 110px;
+    flex-basis: 200px;
     .menu{
         margin: 0 auto;
         h1{
@@ -28,7 +28,7 @@
 }
 
 .main{
-    flex-grow: 8;
+    flex-grow: 1;
     //border: 3px solid black;
     .main-greeting{
         display: flex;

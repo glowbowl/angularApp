@@ -39,7 +39,7 @@ export class AuthService {
                     //     this.router.navigate(['info']);
                     // });
                 this.SetUserDataSignIn(result.user);
-                this.router.navigate(['/info']);
+                this.router.navigate(['']);
             })
             .catch((error) => {
                 window.alert(error.message)
@@ -117,10 +117,10 @@ export class AuthService {
     SignOut() {
         return this.afAuth.auth.signOut().then(() => {
             localStorage.removeItem('user');
-            //this.router.navigate(['']);
-            this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-            this.router.onSameUrlNavigation = 'reload';
             this.router.navigate(['/login']);
+            // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+            // this.router.onSameUrlNavigation = 'reload';
+            // this.router.navigate(['/login']);
         })
     }
 

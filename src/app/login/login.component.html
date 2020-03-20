@@ -5,6 +5,7 @@
         </div>
     </div>
     <div class="main">
+        <div class="main-center">
         <div class="main-label">
             <h1>Login</h1>
         </div>
@@ -29,9 +30,11 @@
                     </div>
                     <div class="field-btn">
                         <button type="submit" [disabled]="!LoginForm.valid">Login</button>
+                        <button (click)="LoginForm.reset()" >Reset</button>
                     </div>
                 </div>
             </div>
         </form>
+        </div>
     </div>
 </div>
