@@ -17,7 +17,6 @@ export class AuthService {
         public router: Router,
         public ngZone: NgZone,
     ) {
-        
         this.afAuth.authState.subscribe(user => {
             if (user) {
                 this.userData = user;
@@ -30,25 +29,26 @@ export class AuthService {
         })
     }
 
-    SignIn(email, password) {
-        return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-            .then((result) => {
-                this.SetUserDataSignIn(result.user);
-                this.router.navigate(['']);
-            })
-            .catch((error) => {
-                window.alert(error.message)
-            })
+    async SignIn(email, password) {
+        try {
+            const result = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+            this.SetUserDataSignIn(result.user);
+            this.router.navigate(['']);
+        }
+        catch (error) {
+            window.alert(error.message);
+        }
     }
 
-    SignUp(email, password, value) {
-        return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-            .then((result) => {
-                this.router.navigate(['']);
-                this.SetUserDataSignUp(result.user, value);
-            }).catch((error) => {
-                window.alert(error.message)
-            })
+    async SignUp(email, password, value) {
+        try {
+            const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+            this.router.navigate(['']);
+            this.SetUserDataSignUp(result.user, value);
+        }
+        catch (error) {
+            window.alert(error.message);
+        }
     }
 
     get isLoggedIn(): boolean {
@@ -108,11 +108,16 @@ export class AuthService {
         })
     }
 
-    SignOut() {
-        return this.afAuth.auth.signOut().then(() => {
+    async SignOut() {
+        try{
+            //window.location.reload();
+            await this.afAuth.auth.signOut();
             localStorage.removeItem('user');
-            this.router.navigate(['/login']);
-        })
+        }
+        catch(error){
+            window.alert(error.message);
+        }
     }
+    
 
 }
