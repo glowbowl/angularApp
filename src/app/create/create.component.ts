@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import {  Countries } from '../models/models';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
@@ -22,7 +21,6 @@ export class CreateComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
     public authService: AuthService,
     public firebaseService: FirebaseService
   ) {}

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
-import { FirebaseService } from '../shared/services/firebase.service';
 
 @Component({
   selector: 'app-main',
@@ -13,12 +12,6 @@ export class MainComponent implements OnInit {
   items: Array<any>;
 
   constructor(public auth: AuthService) { 
-    // console.log(this.auth.userData);
-    // let parsed = JSON.parse(this.auth.userData.ga.b.g.c.a.users);
-    // this.currUs = parsed[0].firstName;
-    // console.log(parsed[0].firstName);
-    
-    
   }
 
   ngOnInit(): void {
@@ -31,15 +24,5 @@ export class MainComponent implements OnInit {
           this.items = null;
         }
       })
-
-    //this.getCoffeeOrders("UAnWxywzOgTJLehH6YHAEztD0ZI3");
-  }
-
-  
-  oncl(){
-    //console.log(this.auth.userData);
-    //let parsed = JSON.parse(this.auth.userData.ga.b.g.c.a.users);
-    //console.log(parsed[0].firstName);
-    //console.log(this.auth.userData);
   }
 }

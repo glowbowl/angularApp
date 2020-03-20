@@ -10,7 +10,6 @@
                 <h1>Hello, {{auth.userData.email}}!</h1>
             </div>
                 <h1 *ngIf="!auth.userData">Hello, stranger!</h1>
-            <!-- <h1 *ngIf="auth.userData">{{items.payload.doc.data().firstName}}</h1> -->
             <div class="nav">
                 <span *ngIf="!auth.userData" routerLink="login">Log in</span>
                 <span *ngIf="auth.userData" routerLink="info">Info DB</span>
