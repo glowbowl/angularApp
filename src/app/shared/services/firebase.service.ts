@@ -9,6 +9,7 @@ export class FirebaseService {
     constructor(public db: AngularFirestore,) { }
 
     deleteUser(userKey) {
+        
         return this.db.collection('users').doc(userKey).delete();
     }
     

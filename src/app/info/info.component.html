@@ -64,7 +64,7 @@
                         <td>{{ item.payload.doc.data().phone }}</td>
                         <td>{{ item.payload.doc.data().email }}</td>
                         <td>
-                            <button (click)="log(item.payload.doc.data().firstName)">Update</button>
+                            <button (click)="log(item.payload.doc.data().uid)">Update</button>
                             <button (click)="log(item.payload.doc.data().nickname)">Delete</button>
                         </td>
                     </tr>

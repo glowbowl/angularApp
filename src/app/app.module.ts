@@ -37,7 +37,7 @@ import { AuthService } from "./shared/services/auth.service";
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

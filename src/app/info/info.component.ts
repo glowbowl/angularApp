@@ -65,8 +65,18 @@ export class InfoComponent implements OnInit {
     
   }
 
-  log(it){
-    console.log(it);
+  log(uid){
+    console.log(this.auth.getItem(uid));
+    let item = this.auth.getItem(uid);
+    item.subscribe(snapshot => {
+      //let val = snapshot.val();
+      //let name = snapshot.dm.proto.fields.firstName;
+      console.log(snapshot);
+
+      console.log(snapshot.type);
+      console.log(snapshot.key);
+      console.log(snapshot.payload.val());
+    });
   }
 
 }

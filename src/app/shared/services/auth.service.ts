@@ -10,6 +10,10 @@ import { Router } from "@angular/router";
 
 export class AuthService {
     userData: any;
+    private basePath: string = '/users';
+
+    items: UserSignUp[] = null; //  list of objects
+    item = null;
 
     constructor(
         public afs: AngularFirestore,
@@ -27,6 +31,12 @@ export class AuthService {
                 JSON.parse(localStorage.getItem('user'));
             }
         })
+    }
+
+    getItem(key: string) {
+        const itemPath = `${this.basePath}`;
+        this.item = this.afs.collection(itemPath).doc(`${key}`).snapshotChanges();
+        return this.item
     }
 
     async SignIn(email, password) {
@@ -119,5 +129,4 @@ export class AuthService {
         }
     }
     
-
 }

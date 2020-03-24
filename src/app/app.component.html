@@ -6,7 +6,7 @@
         <ul>
           <li><a href="#" routerLink="">Main</a></li>
           <li *ngIf="!auth.userData"><a href="#" routerLink="create">Sign up</a></li>
-          <li *ngIf="auth.userData"><a href="#" (click)="signOut('')">Logout</a></li>
+          <li *ngIf="auth.userData"><a href="#" (click)="signOut()">Logout</a></li>
         </ul>
       </nav>
   </div>
