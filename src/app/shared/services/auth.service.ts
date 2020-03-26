@@ -35,9 +35,14 @@ export class AuthService {
 
     getItem(key: string) {
         const itemPath = `${this.basePath}`;
-        this.item = this.afs.collection(itemPath).doc(`${key}`).snapshotChanges();
+        this.item = this.afs.collection(itemPath).doc(`${key}`).valueChanges();
         return this.item
     }
+
+    deleteUser(key: string){
+        const userPath = `${this.basePath}`;
+        return this.afs.collection(userPath).doc(`${key}`).delete();
+    } 
 
     async SignIn(email, password) {
         try {

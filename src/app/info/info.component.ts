@@ -65,18 +65,22 @@ export class InfoComponent implements OnInit {
     
   }
 
-  log(uid){
-    console.log(this.auth.getItem(uid));
+  update(uid){
+    //console.log(this.auth.getItem(uid));
     let item = this.auth.getItem(uid);
     item.subscribe(snapshot => {
       //let val = snapshot.val();
       //let name = snapshot.dm.proto.fields.firstName;
-      console.log(snapshot);
+      console.log(snapshot.uid);
 
-      console.log(snapshot.type);
-      console.log(snapshot.key);
-      console.log(snapshot.payload.val());
+      // console.log(snapshot.type);
+      // console.log(snapshot.key);
+      // console.log(snapshot.payload.val());
     });
+  }
+
+  delete(uid){
+    this.auth.deleteUser(uid);
   }
 
 }

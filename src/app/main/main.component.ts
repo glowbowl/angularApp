@@ -9,20 +9,21 @@ import { AuthService } from '../shared/services/auth.service';
 export class MainComponent implements OnInit {
 
   currUser;
-  items: Array<any>;
+  //items: Array<any>;
+  name: string;
 
   constructor(public auth: AuthService) { 
   }
 
   ngOnInit(): void {
-    this.auth.getUserData()
-      .subscribe(result => {
-        if (result){
-            this.items = result;
-        }
-        else{
-          this.items = null;
-        }
-      })
+    // this.auth.getUserData()
+    //   .subscribe(result => {
+    //     if (result){
+    //         this.items = result;
+    //     }
+    //     else{
+    //       this.items = null;
+    //     }
+    //   })
   }
 }
