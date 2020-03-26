@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
 
+import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
+
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
@@ -38,6 +40,8 @@ import { AuthService } from "./shared/services/auth.service";
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    BsModalService,
+    BsModalRef
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
