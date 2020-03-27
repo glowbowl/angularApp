@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 
+import { UserSignUp } from "../models/models";
+
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
@@ -11,9 +17,36 @@ export class InfoComponent implements OnInit {
   SearchForm: FormGroup;
   UpdateForm: FormGroup;
 
-  items: Array<any>;
+  //items: Array<any>;
 
-  constructor(public auth: AuthService) { }
+  items$;
+  nicknameFilter$: BehaviorSubject<string | null>;
+  emailFilter$: BehaviorSubject<string | null>;
+
+  constructor(public auth: AuthService, afs: AngularFirestore) { 
+    this.nicknameFilter$ = new BehaviorSubject(null);
+    this.emailFilter$ = new BehaviorSubject(null);
+    this.items$ = combineLatest(
+      this.nicknameFilter$,
+      this.emailFilter$
+    ).pipe(
+      switchMap(([size, color]) =>
+        afs.collection('items', ref => {
+          let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+          if (size) { query = query.where('size', '==', size) };
+          if (color) { query = query.where('color', '==', color) };
+          return query;
+        }).valueChanges()
+      )
+    );
+  }
+
+  filterByNickname(nickname: string | null) {
+    this.nicknameFilter$.next(nickname);
+  }
+  filterByEmail(email: string | null) {
+    this.emailFilter$.next(email);
+  }
 
   ngOnInit(): void {
     this.auth.getUserData()
