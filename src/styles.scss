@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 $primary: whitesmoke;
 
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-
 body {
     background-color: $primary;
     margin: 0;
@@ -55,7 +53,7 @@ body {
 
     .container {
         //border: 3px solid green;
-        margin: 0 auto;
+        //margin: 0 0;
         width: 100%;
         flex-grow: 3;
     }
