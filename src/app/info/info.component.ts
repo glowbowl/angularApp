@@ -7,6 +7,7 @@ import { UserSignUp } from "../models/models";
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { getAllLifecycleHooks } from '@angular/compiler/src/lifecycle_reflector';
 
 @Component({
   selector: 'app-info',
@@ -17,35 +18,12 @@ export class InfoComponent implements OnInit {
   SearchForm: FormGroup;
   UpdateForm: FormGroup;
 
-  //items: Array<any>;
+  items: Array<any>;
 
-  items$;
-  nicknameFilter$: BehaviorSubject<string | null>;
-  emailFilter$: BehaviorSubject<string | null>;
+
 
   constructor(public auth: AuthService, afs: AngularFirestore) { 
-    this.nicknameFilter$ = new BehaviorSubject(null);
-    this.emailFilter$ = new BehaviorSubject(null);
-    this.items$ = combineLatest(
-      this.nicknameFilter$,
-      this.emailFilter$
-    ).pipe(
-      switchMap(([size, color]) =>
-        afs.collection('items', ref => {
-          let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
-          if (size) { query = query.where('size', '==', size) };
-          if (color) { query = query.where('color', '==', color) };
-          return query;
-        }).valueChanges()
-      )
-    );
-  }
-
-  filterByNickname(nickname: string | null) {
-    this.nicknameFilter$.next(nickname);
-  }
-  filterByEmail(email: string | null) {
-    this.emailFilter$.next(email);
+    
   }
 
   ngOnInit(): void {
@@ -100,12 +78,12 @@ export class InfoComponent implements OnInit {
 
   update(uid){
     //console.log(this.auth.getItem(uid));
-    let item = this.auth.getItem(uid);
+    let item = this.auth.getUser(uid);
     item.subscribe(snapshot => {
       //let val = snapshot.val();
       //let name = snapshot.dm.proto.fields.firstName;
       console.log(snapshot.uid);
-
+      this.auth.getAll();
       // console.log(snapshot.type);
       // console.log(snapshot.key);
       // console.log(snapshot.payload.val());

@@ -33,7 +33,7 @@ export class AuthService {
         })
     }
 
-    getItem(key: string) {
+    getUser(key: string) {
         const itemPath = `${this.basePath}`;
         this.item = this.afs.collection(itemPath).doc(`${key}`).valueChanges();
         return this.item
@@ -42,7 +42,16 @@ export class AuthService {
     deleteUser(key: string){
         const userPath = `${this.basePath}`;
         return this.afs.collection(userPath).doc(`${key}`).delete();
-    } 
+    }
+
+    getAll(){
+        this.afs.collection("users").get().subscribe(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                
+                console.log(doc.data());
+            });
+        });
+    }
 
     async SignIn(email, password) {
         try {
