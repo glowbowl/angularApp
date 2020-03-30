@@ -20,6 +20,8 @@ export class InfoComponent implements OnInit {
 
   items: Array<any>;
 
+  allUsers: Array<any>;
+
 
 
   constructor(public auth: AuthService, afs: AngularFirestore) { 
@@ -73,7 +75,17 @@ export class InfoComponent implements OnInit {
   }
 
   onSubmit(value) {
-    
+    // this.auth.getAll().subscribe(function (querySnapshot) {
+    //   console.log(querySnapshot.docs);
+    //   //this.users = doc.data();
+    // });;
+    this.auth.getAll().subscribe(function (querySnapshot) {
+      querySnapshot.forEach(docs => {
+        //console.log(docs.data());
+        this.allUsers.push( docs.data());
+      });
+    });;
+    console.log(this.allUsers);
   }
 
   update(uid){

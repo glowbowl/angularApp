@@ -45,12 +45,7 @@ export class AuthService {
     }
 
     getAll(){
-        this.afs.collection("users").get().subscribe(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-                
-                console.log(doc.data());
-            });
-        });
+        return this.afs.collection("users").get();
     }
 
     async SignIn(email, password) {
