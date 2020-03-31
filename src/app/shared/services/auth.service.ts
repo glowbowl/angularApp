@@ -34,7 +34,7 @@ export class AuthService {
     }
 
     getUser(key: string) {
-        const itemPath = `${this.basePath}`;
+        const itemPath = `${this.basePath}`;//.doc(`${key}`)
         this.item = this.afs.collection(itemPath).doc(`${key}`).valueChanges();
         return this.item
     }
@@ -45,7 +45,9 @@ export class AuthService {
     }
 
     getAll(){
-        return this.afs.collection("users").get();
+        const itemPath = `${this.basePath}`;//.doc(`${key}`)
+        this.item = this.afs.collection(itemPath).valueChanges();
+        return this.item
     }
 
     async SignIn(email, password) {

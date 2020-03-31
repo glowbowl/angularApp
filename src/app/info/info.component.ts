@@ -4,7 +4,7 @@ import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 
 import { UserSignUp } from "../models/models";
 
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { getAllLifecycleHooks } from '@angular/compiler/src/lifecycle_reflector';
@@ -20,7 +20,7 @@ export class InfoComponent implements OnInit {
 
   items: Array<any>;
 
-  allUsers: Array<any>;
+  allUsers: Array<object>;
 
 
 
@@ -29,6 +29,15 @@ export class InfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let item = this.auth.getAll();
+    item.subscribe(snapshot => {
+      this.allUsers = snapshot;
+      snapshot.forEach(doc => {
+        //console.log(doc);
+      });
+    });
+
+
     this.auth.getUserData()
       .subscribe(result => {
         if (result) {
@@ -75,17 +84,18 @@ export class InfoComponent implements OnInit {
   }
 
   onSubmit(value) {
-    // this.auth.getAll().subscribe(function (querySnapshot) {
+    // this.auth.getAll().subscribe( querySnapshot => {
     //   console.log(querySnapshot.docs);
-    //   //this.users = doc.data();
-    // });;
+    //   this.allUsers = querySnapshot.docs;
+    // });
     this.auth.getAll().subscribe(function (querySnapshot) {
       querySnapshot.forEach(docs => {
         //console.log(docs.data());
-        this.allUsers.push( docs.data());
+        this.allUsers = docs.data();
+        //this.allUsers.push( docs.data());
       });
     });;
-    console.log(this.allUsers);
+    //console.log(this.allUsers);
   }
 
   update(uid){
@@ -94,8 +104,12 @@ export class InfoComponent implements OnInit {
     item.subscribe(snapshot => {
       //let val = snapshot.val();
       //let name = snapshot.dm.proto.fields.firstName;
-      console.log(snapshot.uid);
-      this.auth.getAll();
+      //this.allUsers = snapshot;
+      snapshot.forEach(doc => {
+        //console.log(doc);
+      });
+      //this.allUsers += snapshot;
+      //this.auth.getAll();
       // console.log(snapshot.type);
       // console.log(snapshot.key);
       // console.log(snapshot.payload.val());
@@ -103,7 +117,11 @@ export class InfoComponent implements OnInit {
   }
 
   delete(uid){
-    this.auth.deleteUser(uid);
+    //this.auth.deleteUser(uid);
+    //console.log(this.allUsers);
+    //this.allUsers.forEach(doc => {
+      console.log(this.allUsers);
+    //});
   }
 
 }
