@@ -32,9 +32,9 @@ export class InfoComponent implements OnInit {
     let item = this.auth.getAll();
     item.subscribe(snapshot => {
       this.allUsers = snapshot;
-      snapshot.forEach(doc => {
-        //console.log(doc);
-      });
+      // snapshot.forEach(doc => {
+      //   //console.log(doc);
+      // });
     });
 
 
@@ -100,28 +100,29 @@ export class InfoComponent implements OnInit {
 
   update(uid){
     //console.log(this.auth.getItem(uid));
+    //console.log(uid);
     let item = this.auth.getUser(uid);
     item.subscribe(snapshot => {
       //let val = snapshot.val();
       //let name = snapshot.dm.proto.fields.firstName;
       //this.allUsers = snapshot;
-      snapshot.forEach(doc => {
-        //console.log(doc);
-      });
+      // snapshot.forEach(doc => {
+      //   //console.log(doc);
+      // });
       //this.allUsers += snapshot;
       //this.auth.getAll();
       // console.log(snapshot.type);
-      // console.log(snapshot.key);
-      // console.log(snapshot.payload.val());
+      //console.log(snapshot.key);
+       console.log(snapshot.email);
     });
   }
 
   delete(uid){
     //this.auth.deleteUser(uid);
     //console.log(this.allUsers);
-    //this.allUsers.forEach(doc => {
-      console.log(this.allUsers);
-    //});
+    this.allUsers.forEach(doc => {
+      console.log(doc);
+    });
   }
 
 }

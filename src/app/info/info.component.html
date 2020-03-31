@@ -57,15 +57,15 @@
                         <td>Email</td>
                         <td>Action</td>
                     </tr>
-                    <tr *ngFor="let item of items">
-                        <td>{{ item.payload.doc.data().firstName }}</td>
-                        <td>{{ item.payload.doc.data().lastName }}</td>
-                        <td>{{ item.payload.doc.data().nickname }}</td>
-                        <td>{{ item.payload.doc.data().phone }}</td>
-                        <td>{{ item.payload.doc.data().email }}</td>
+                    <tr *ngFor="let user of allUsers">
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.nickname }}</td>
+                        <td>{{ user.phone }}</td>
+                        <td>{{ user.email }}</td>
                         <td>
-                            <button (click)="update(item.payload.doc.data().uid)">Update</button>
-                            <button (click)="delete(item.payload.doc.data().uid)">Delete</button>
+                            <button (click)="update(user.uid)">Update</button>
+                            <button (click)="delete(user.uid)">Delete</button>
                         </td>
                     </tr>
                 </tbody>
