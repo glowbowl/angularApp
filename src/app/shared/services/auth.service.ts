@@ -34,7 +34,7 @@ export class AuthService {
     }
 
     getUser(key: string) {
-        const itemPath = `${this.basePath}`;//.doc(`${key}`)
+        const itemPath = `${this.basePath}`;
         this.item = this.afs.collection(itemPath).doc(`${key}`).valueChanges();
         return this.item
     }

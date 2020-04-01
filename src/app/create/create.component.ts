@@ -71,7 +71,7 @@ export class CreateComponent implements OnInit {
       .subscribe(res => {
         if (res) {
           this.allCountries = res;
-          console.log(res);
+          //console.log(res);
         }
       });
   }

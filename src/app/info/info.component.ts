@@ -18,11 +18,9 @@ export class InfoComponent implements OnInit {
   SearchForm: FormGroup;
   UpdateForm: FormGroup;
 
-  items: Array<any>;
+  //items: Array<any>;
 
   allUsers: Array<object>;
-
-
 
   constructor(public auth: AuthService, afs: AngularFirestore) { 
     
@@ -32,21 +30,17 @@ export class InfoComponent implements OnInit {
     let item = this.auth.getAll();
     item.subscribe(snapshot => {
       this.allUsers = snapshot;
-      // snapshot.forEach(doc => {
-      //   //console.log(doc);
-      // });
     });
 
-
-    this.auth.getUserData()
-      .subscribe(result => {
-        if (result) {
-          this.items = result;
-        }
-        else {
-          this.items = null;
-        }
-      });
+    // this.auth.getUserData()
+    //   .subscribe(result => {
+    //     if (result) {
+    //       this.items = result;
+    //     }
+    //     else {
+    //       this.items = null;
+    //     }
+    //   });
     this.SearchForm = new FormGroup({
       nickname: new FormControl(
         [null],
@@ -84,45 +78,21 @@ export class InfoComponent implements OnInit {
   }
 
   onSubmit(value) {
-    // this.auth.getAll().subscribe( querySnapshot => {
-    //   console.log(querySnapshot.docs);
-    //   this.allUsers = querySnapshot.docs;
-    // });
-    this.auth.getAll().subscribe(function (querySnapshot) {
-      querySnapshot.forEach(docs => {
-        //console.log(docs.data());
-        this.allUsers = docs.data();
-        //this.allUsers.push( docs.data());
-      });
-    });;
-    //console.log(this.allUsers);
+    console.log(this.allUsers);
+    this.allUsers.forEach(doc => {
+      console.log(doc);
+    });
   }
 
   update(uid){
-    //console.log(this.auth.getItem(uid));
-    //console.log(uid);
     let item = this.auth.getUser(uid);
     item.subscribe(snapshot => {
-      //let val = snapshot.val();
-      //let name = snapshot.dm.proto.fields.firstName;
-      //this.allUsers = snapshot;
-      // snapshot.forEach(doc => {
-      //   //console.log(doc);
-      // });
-      //this.allUsers += snapshot;
-      //this.auth.getAll();
-      // console.log(snapshot.type);
-      //console.log(snapshot.key);
-       console.log(snapshot.email);
+      console.log(snapshot.email);
     });
   }
 
   delete(uid){
-    //this.auth.deleteUser(uid);
-    //console.log(this.allUsers);
-    this.allUsers.forEach(doc => {
-      console.log(doc);
-    });
+    this.auth.deleteUser(uid);
   }
 
 }
