@@ -41,13 +41,13 @@
                         </div>
                         
                         <div class="field-btn">
-                            <button (click)="SearchForm.reset()">Clear</button>
+                            <button (click)="resetForm()">Clear</button>
                             <button type="submit" [disabled]="!SearchForm.valid">Find</button>
                         </div>
                     </div>
                 </div>
             </form>
-            <div class="table">
+            <!-- <div class="table">
                 <tbody class="primary-table">
                     <tr class="table-names">
                         <td>First Name</td>
@@ -66,6 +66,29 @@
                         <td>
                             <button (click)="update(user.uid)">Update</button>
                             <button (click)="delete(user.uid)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </div> -->
+            <div class="table" *ngIf="searched">
+                <tbody class="primary-table">
+                    <tr class="table-names">
+                        <td>First Name</td>
+                        <td>Last Name</td>
+                        <td>Nickname</td>
+                        <td>Phone</td>
+                        <td>Email</td>
+                        <td>Action</td>
+                    </tr>
+                    <tr>
+                        <td>{{ searchedUser.firstName }}</td>
+                        <td>{{ searchedUser.lastName }}</td>
+                        <td>{{ searchedUser.nickname }}</td>
+                        <td>{{ searchedUser.phone }}</td>
+                        <td>{{ searchedUser.email }}</td>
+                        <td>
+                            <button (click)="update(searchedUser.uid)">Update</button>
+                            <button (click)="delete(searchedUser.uid)">Delete</button>
                         </td>
                     </tr>
                 </tbody>

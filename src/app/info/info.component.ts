@@ -21,6 +21,8 @@ export class InfoComponent implements OnInit {
   //items: Array<any>;
 
   allUsers: Array<object>;
+  searchedUser;
+  searched: Boolean = false;
 
   constructor(public auth: AuthService, afs: AngularFirestore) { 
     
@@ -78,16 +80,27 @@ export class InfoComponent implements OnInit {
   }
 
   onSubmit(value) {
-    console.log(this.allUsers);
-    this.allUsers.forEach(doc => {
-      console.log(doc);
+    // console.log(this.allUsers);
+    // this.allUsers.forEach(doc => {
+    //   console.log(doc);
+    // });
+    this.searched = !this.searched;
+    let item = this.auth.getUser("LvfbU9wbzBPaa8NpMKseN5rtQXV2");
+    item.subscribe(snapshot => {
+      this.searchedUser = snapshot;
     });
+  }
+
+  resetForm(){
+    this.searched = !this.searched;
+    console.log(this.searched);
+    this.SearchForm.reset();
   }
 
   update(uid){
     let item = this.auth.getUser(uid);
     item.subscribe(snapshot => {
-      console.log(snapshot.email);
+      console.log(snapshot);
     });
   }
 
