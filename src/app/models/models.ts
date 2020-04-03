@@ -5,7 +5,6 @@ export interface UserSignUp {
     nickname: string;
     phone: string;
     email: string;
-    //password: string;
     addressType: string;
     address: string;
     country: string;

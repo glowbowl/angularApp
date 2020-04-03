@@ -2,12 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 
-import { UserSignUp } from "../models/models";
-
-import { AngularFirestore, QueryDocumentSnapshot } from '@angular/fire/firestore';
-import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { getAllLifecycleHooks } from '@angular/compiler/src/lifecycle_reflector';
+import { AngularFirestore} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-info',
@@ -22,6 +17,7 @@ export class InfoComponent implements OnInit {
   searchedUser;
   searched: Boolean = false;
   closed: Boolean = false;
+  additional: Boolean = false;
 
   constructor(public auth: AuthService, afs: AngularFirestore) { 
     
@@ -70,26 +66,18 @@ export class InfoComponent implements OnInit {
   }
 
   onSubmit(value) {
-    //console.log(this.allUsers);
-    // this.allUsers.forEach(doc => {
-    //   if (value.nickname === doc["nickname"]){
-    //     if (value.phone === doc["phone"]) {
-
-    //     }
-    //   }
-    //   //console.log(doc["email"]);
-    // });
     let uid;
     for (let i = 0; i < this.allUsers.length; i++) {
-      //console.log(array[i]);
-      if ( value.nickname === this.allUsers[i]["nickname"]){
-        if (value.phone === this.allUsers[i]["phone"]) {
-          uid = this.allUsers[i]["uid"];
-          break;
-        }
+      if ( (value.nickname === this.allUsers[i]["nickname"] && value.phone === this.allUsers[i]["phone"]) ||
+            (value.nickname === this.allUsers[i]["nickname"] && value.email === this.allUsers[i]["email"]) ||
+            (value.phone === this.allUsers[i]["phone"] && value.email === this.allUsers[i]["email"]) ||
+            (value.nickname === this.allUsers[i]["nickname"] && value.phone === this.allUsers[i]["phone"] && value.email === this.allUsers[i]["email"])
+      ){
+        uid = this.allUsers[i]["uid"];
+        break;
       }
+      //make invalid search check
     }
-
 
     let item = this.auth.getUser(uid);
     item.subscribe(snapshot => {
@@ -99,7 +87,12 @@ export class InfoComponent implements OnInit {
     });
   }
 
+  additionalTable() {
+    this.additional = !this.additional;
+  }
+
   resetForm(){
+    this.additional = false;
     this.closed = true;
     this.SearchForm.reset({});
   }
