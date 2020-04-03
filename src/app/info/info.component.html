@@ -11,38 +11,24 @@
                     <div class="field">
                         <div class="password">
                             <div class="field-pass">
-                                <input [ngClass]="{ 'is-invalid': nickname.invalid && nickname.touched }" type="text" placeholder="Nickname"
+                                <input type="text" placeholder="Nickname"
                                     formControlName="nickname">
-                                <div *ngIf="(nickname.invalid && nickname.touched) || nickname.dirty" class="text-danger">
-                                    <small *ngIf="nickname.errors?.required">Nickname is required</small>
-                                    <small *ngIf="nickname.errors?.minlength">Nickname must be at least 6 characters</small>
-                                </div>
                             </div>
 
                             <div class="field-pass">
-                                <input [ngClass]="{ 'is-invalid': phone.invalid && phone.touched }" type="tel" placeholder="Phone"
+                                <input type="tel" placeholder="Phone"
                                     formControlName="phone">
-                                <div *ngIf="(phone.invalid && phone.touched) || phone.dirty" class="text-danger">
-                                    <small *ngIf="phone.errors?.required">Phone is required</small>
-                                    <small *ngIf="phone.errors?.pattern">Please provide a valid phone</small>
-                                    <small *ngIf="phone.errors?.minlength">Phone must be at least 5 characters</small>
-                                    <small *ngIf="phone.errors?.maxlength">Phone can't be longer than 10 characters</small>
-                                </div>
                             </div>
 
                             <div class="field-pass">
-                                <input [ngClass]="{ 'is-invalid': email.invalid && email.touched }" type="email" placeholder="Email"
+                                <input type="email" placeholder="Email"
                                     formControlName="email">
-                                <div *ngIf="(email.invalid && email.touched) || email.dirty" class="text-danger">
-                                    <small *ngIf="email.errors?.required">Email is required</small>
-                                    <small *ngIf="email.errors?.pattern">Please provide a valid email address</small>
-                                </div>
                             </div>
                         </div>
                         
                         <div class="field-btn">
-                            <button (click)="resetForm()">Clear</button>
-                            <button type="submit" [disabled]="!SearchForm.valid">Find</button>
+                            <button (click)="resetForm(); submitted = false">Clear</button>
+                            <button type="submit" [disabled]="(!nickname.valid && !phone.valid) || (!nickname.valid && !email.valid) || (!phone.valid && !email.valid)">Find</button>
                         </div>
                     </div>
                 </div>
@@ -70,7 +56,7 @@
                     </tr>
                 </tbody>
             </div> -->
-            <div class="table" *ngIf="searched">
+            <div class="table" *ngIf="searched && !closed">
                 <tbody class="primary-table">
                     <tr class="table-names">
                         <td>First Name</td>

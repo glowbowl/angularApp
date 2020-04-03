@@ -45,7 +45,7 @@ export class AuthService {
     }
 
     getAll(){
-        const itemPath = `${this.basePath}`;//.doc(`${key}`)
+        const itemPath = `${this.basePath}`;
         this.item = this.afs.collection(itemPath).valueChanges();
         return this.item
     }
@@ -98,7 +98,7 @@ export class AuthService {
             lastName: value.lastName,
             nickname: value.nickname,
             phone: value.phone,
-            addressType: value.nickname,
+            addressType: value.addressType,
             address: value.address,
             country: value.country,
             postalCode: value.postalCode,

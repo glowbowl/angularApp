@@ -108,6 +108,10 @@
                         &:hover{
                             background: darken(#28d,15%);
                         }
+                        &:disabled{
+                            background: darken(#28d,15%);
+                            cursor: default;
+                        }
                     }
                 }
             }

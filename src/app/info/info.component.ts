@@ -18,11 +18,10 @@ export class InfoComponent implements OnInit {
   SearchForm: FormGroup;
   UpdateForm: FormGroup;
 
-  //items: Array<any>;
-
   allUsers: Array<object>;
   searchedUser;
   searched: Boolean = false;
+  closed: Boolean = false;
 
   constructor(public auth: AuthService, afs: AngularFirestore) { 
     
@@ -34,15 +33,6 @@ export class InfoComponent implements OnInit {
       this.allUsers = snapshot;
     });
 
-    // this.auth.getUserData()
-    //   .subscribe(result => {
-    //     if (result) {
-    //       this.items = result;
-    //     }
-    //     else {
-    //       this.items = null;
-    //     }
-    //   });
     this.SearchForm = new FormGroup({
       nickname: new FormControl(
         [null],
@@ -80,21 +70,38 @@ export class InfoComponent implements OnInit {
   }
 
   onSubmit(value) {
-    // console.log(this.allUsers);
+    //console.log(this.allUsers);
     // this.allUsers.forEach(doc => {
-    //   console.log(doc);
+    //   if (value.nickname === doc["nickname"]){
+    //     if (value.phone === doc["phone"]) {
+
+    //     }
+    //   }
+    //   //console.log(doc["email"]);
     // });
-    this.searched = !this.searched;
-    let item = this.auth.getUser("LvfbU9wbzBPaa8NpMKseN5rtQXV2");
+    let uid;
+    for (let i = 0; i < this.allUsers.length; i++) {
+      //console.log(array[i]);
+      if ( value.nickname === this.allUsers[i]["nickname"]){
+        if (value.phone === this.allUsers[i]["phone"]) {
+          uid = this.allUsers[i]["uid"];
+          break;
+        }
+      }
+    }
+
+
+    let item = this.auth.getUser(uid);
     item.subscribe(snapshot => {
       this.searchedUser = snapshot;
+      this.closed = false;
+      this.searched = true;
     });
   }
 
   resetForm(){
-    this.searched = !this.searched;
-    console.log(this.searched);
-    this.SearchForm.reset();
+    this.closed = true;
+    this.SearchForm.reset({});
   }
 
   update(uid){
