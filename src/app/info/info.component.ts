@@ -114,6 +114,7 @@ export class InfoComponent implements OnInit {
   updateDialogMain(value) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
+    dialogConfig.width = "300px";
     dialogConfig.data = {
       firstName: value.firstName,
       lastName: value.lastName,

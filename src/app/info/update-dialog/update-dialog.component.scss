@@ -1,6 +1,8 @@
-.modal-content-wrapper {
+form {
     width: 100%;
     height: 100%;
+    justify-self: right;
+    align-self: center;
 }
 
 .modal-title {
@@ -8,7 +10,7 @@
 }
 
 .modal-footer {
-    justify-self: right;
+    //justify-self: center;
     align-self: center;
 }
 
@@ -25,10 +27,10 @@ button{
 }
 
 .modal-action-button {
-    background:darken(tomato,5%);
+    background:#28d;
     color: white;
     &:hover{
-        background: darken(tomato,15%);
+        background: darken(#28d,15%);
     }
 }
 

@@ -10,6 +10,7 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from "../environments/environment";
 
+import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -51,7 +52,8 @@ import { UpdateAdditionalComponent } from './info/update-additional/update-addit
     BrowserAnimationsModule,
     MatButtonModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatInputModule
   ],
   entryComponents: [
     DeleteDialogComponent,

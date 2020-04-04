@@ -3,9 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import {  Countries } from '../models/models';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 import { AuthService } from "../shared/services/auth.service";
-import { FirebaseService } from '../shared/services/firebase.service';
-
-
 
 @Component({
   selector: "app-create",
@@ -22,7 +19,6 @@ export class CreateComponent implements OnInit {
   constructor(
     private http: HttpClient,
     public authService: AuthService,
-    public firebaseService: FirebaseService
   ) {}
 
   ngOnInit(): void {
