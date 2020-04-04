@@ -1,9 +1,52 @@
-<!-- <div class="modal-content-wrapper">
-    <header class="modal-header">
-        <h1 class="modal-title">Are you sure you want to delete?</h1>
-    </header>
-    <footer class="modal-footer">
-        <button mat-raised-button class="modal-action-button" (click)="actionFunction()">Delete</button>
-        <button mat-raised-button class="modal-cancel-button" (click)="closeModal()">Cancel</button>
-    </footer>
-</div> -->
+<div class="container">
+    <h1 class="modal-title">Update User Data</h1>
+    <form [formGroup]="UpdateForm" (ngSubmit)="onSubmit(UpdateForm.value)">
+        <div class="field">
+            <mat-form-field appearance="standart">
+                <mat-label>Address Type:</mat-label>
+                <mat-select formControlName="addressType">
+                    <mat-option value="Billing Address">Billing Address</mat-option>
+                    <mat-option value="Shipment Address">Shipment Address</mat-option>
+                    <mat-option value="Home Address">Home Address</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="field">
+            <mat-form-field appearance="standart">
+                <mat-label>Address:</mat-label>
+                <input matInput [ngClass]="{ 'is-invalid': address.invalid && address.touched }" type="text" placeholder="Address"
+                    formControlName="address">
+                <div *ngIf="(address.invalid && address.touched) || address.dirty" class="text-danger">
+                    <small *ngIf="address.errors?.required">Address is required</small>
+                </div>
+            </mat-form-field>
+        </div>
+
+        <div class="field">
+            <mat-form-field appearance="standart">
+                <mat-label>Country:</mat-label>
+                <mat-select formControlName="country">
+                    <mat-option *ngFor="let country of allCountries"  [value]="country.name" ><span>{{country.name}}</span></mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="field">
+            <mat-form-field appearance="standart">
+                <mat-label>Postal Code:</mat-label>
+                <input matInput [ngClass]="{ 'is-invalid': postalCode.invalid && postalCode.touched }" type="text" placeholder="Postal Code"
+                    formControlName="postalCode">
+                <div *ngIf="(postalCode.invalid && postalCode.touched) || postalCode.dirty" class="text-danger">
+                    <small *ngIf="postalCode.errors?.required">Postal Code is required</small>
+                    <small *ngIf="postalCode.errors?.pattern">Please provide a valid postal code</small><br>
+                    <small *ngIf="postalCode.errors?.minlength">Postal Code must be at least 4 characters</small>
+                </div>
+            </mat-form-field>
+        </div>
+        <footer class="modal-footer">
+            <button type="submit" mat-raised-button [autofocus]="false" class="modal-action-button">Update</button>
+            <button type="button" mat-raised-button class="modal-cancel-button" (click)="closeModal()">Cancel</button>
+        </footer>
+    </form>
+</div>

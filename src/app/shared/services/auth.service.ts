@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { UserSignIn, UserSignUp } from "../../models/models";
+import { UserSignIn, UserSignUp, UserUpdate, UserAdditionalUpdate } from "../../models/models";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
@@ -112,14 +112,27 @@ export class AuthService {
         return this.afs.collection(`users`).snapshotChanges();
     }
 
-    updateUser(user, value) {
-        const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-        const userData  = {
+    updateUser(userId, value) {
+        const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userId}`);
+        const userData: UserUpdate  = {
             firstName: value.firstName,
             lastName: value.lastName,
             nickname: value.nickname,
             phone: value.phone,
-            addressType: value.nickname,
+            // addressType: value.nickname,
+            // address: value.address,
+            // country: value.country,
+            // postalCode: value.postalCode,
+        }
+        return userRef.set(userData, {
+            merge: true
+        })
+    }
+
+    updateAdditionalUser(userId, value) {
+        const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${userId}`);
+        const userData: UserAdditionalUpdate = {
+            addressType: value.addressType,
             address: value.address,
             country: value.country,
             postalCode: value.postalCode,

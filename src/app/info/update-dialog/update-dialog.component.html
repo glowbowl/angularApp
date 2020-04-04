@@ -1,57 +1,56 @@
-<h1 class="modal-title">Update User Data</h1>
-<form [formGroup]="UpdateForm" (ngSubmit)="onSubmit(UpdateForm.value)">
-    <div class="container">
-        <div class="field">
-            <mat-form-field appearance="standart">
-            <!-- <label for="firstNameOption">First Name:</label> -->
-            <mat-label>First Name:</mat-label>
-            <input matInput [ngClass]="{ 'is-invalid': firstName.invalid && firstName.touched }" type="text" [(ngModel)]="data.firstName"
-                formControlName="firstName">
-            <div *ngIf="(firstName.invalid && firstName.touched) || firstName.dirty" class="text-danger">
-                <small *ngIf="firstName.errors?.required">First Name is required</small>
+<div class="container">
+    <h1 class="modal-title">Update User Data</h1>
+    <form [formGroup]="UpdateForm" (ngSubmit)="onSubmit(UpdateForm.value)">
+            <div class="field">
+                <mat-form-field appearance="standart">
+                <mat-label>First Name:</mat-label>
+                <input matInput [ngClass]="{ 'is-invalid': firstName.invalid && firstName.touched }" type="text"
+                    formControlName="firstName">
+                <div *ngIf="(firstName.invalid && firstName.touched) || firstName.dirty" class="text-danger">
+                    <small *ngIf="firstName.errors?.required">First Name is required</small>
+                </div>
+                </mat-form-field>
             </div>
-            </mat-form-field>
-        </div>
-        
-        <div class="field">
-            <mat-form-field appearance="standart">
-            <mat-label>Last Name:</mat-label>
-            <input matInput [ngClass]="{ 'is-invalid': lastName.invalid && lastName.touched }" type="text" [(ngModel)]="data.lastName"
-                formControlName="lastName">
-            <div *ngIf="(lastName.invalid && lastName.touched) || lastName.dirty" class="text-danger">
-                <small *ngIf="lastName.errors?.required">Last Name is required</small>
+            
+            <div class="field">
+                <mat-form-field appearance="standart">
+                <mat-label>Last Name:</mat-label>
+                <input matInput [ngClass]="{ 'is-invalid': lastName.invalid && lastName.touched }" type="text"
+                    formControlName="lastName">
+                <div *ngIf="(lastName.invalid && lastName.touched) || lastName.dirty" class="text-danger">
+                    <small *ngIf="lastName.errors?.required">Last Name is required</small>
+                </div>
+                </mat-form-field>
             </div>
-            </mat-form-field>
-        </div>
-        
-        <div class="field">
-            <mat-form-field appearance="standart">
-            <mat-label>Nickname:</mat-label>
-            <input matInput [ngClass]="{ 'is-invalid': nickname.invalid && nickname.touched }" type="text" [(ngModel)]="data.nickname"
-                formControlName="nickname">
-            <div *ngIf="(nickname.invalid && nickname.touched) || nickname.dirty" class="text-danger">
-                <small *ngIf="nickname.errors?.required">Nickname is required</small>
-                <small *ngIf="nickname.errors?.minlength">Nickname must be at least 6 characters</small>
+            
+            <div class="field">
+                <mat-form-field appearance="standart">
+                <mat-label>Nickname:</mat-label>
+                <input matInput [ngClass]="{ 'is-invalid': nickname.invalid && nickname.touched }" type="text"
+                    formControlName="nickname">
+                <div *ngIf="(nickname.invalid && nickname.touched) || nickname.dirty" class="text-danger">
+                    <small *ngIf="nickname.errors?.required">Nickname is required</small>
+                    <small *ngIf="nickname.errors?.minlength">Nickname must be at least 6 characters</small>
+                </div>
+                </mat-form-field>
             </div>
-            </mat-form-field>
-        </div>
-        
-        <div class="field">
-            <mat-form-field appearance="standart">
-            <mat-label>Phone:</mat-label>
-            <input matInput [ngClass]="{ 'is-invalid': phone.invalid && phone.touched }" type="tel" [(ngModel)]="data.phone"
-                formControlName="phone">
-            <div *ngIf="(phone.invalid && phone.touched) || phone.dirty" class="text-danger">
-                <small *ngIf="phone.errors?.required">Phone is required</small>
-                <small *ngIf="phone.errors?.pattern">Please provide a valid phone</small>
-                <small *ngIf="phone.errors?.minlength">Phone must be at least 5 characters</small>
-                <small *ngIf="phone.errors?.maxlength">Phone can't be longer than 10 characters</small>
+            
+            <div class="field">
+                <mat-form-field appearance="standart">
+                <mat-label>Phone:</mat-label>
+                <input matInput [ngClass]="{ 'is-invalid': phone.invalid && phone.touched }" type="tel"
+                    formControlName="phone">
+                <div *ngIf="(phone.invalid && phone.touched) || phone.dirty" class="text-danger">
+                    <small *ngIf="phone.errors?.required">Phone is required</small>
+                    <small *ngIf="phone.errors?.pattern">Please provide a valid phone</small>
+                    <small *ngIf="phone.errors?.minlength">Phone must be at least 5 characters</small>
+                    <small *ngIf="phone.errors?.maxlength">Phone can't be longer than 10 characters</small>
+                </div>
+                </mat-form-field>
             </div>
-            </mat-form-field>
-        </div>
-    </div>
-</form>
-<footer class="modal-footer">
-    <button mat-raised-button class="modal-action-button" (click)="actionFunction()">Update</button>
-    <button mat-raised-button class="modal-cancel-button" (click)="closeModal()">Cancel</button>
-</footer>
+            <footer class="modal-footer">
+                <button type="submit" mat-raised-button [autofocus]="false" class="modal-action-button">Update</button>
+                <button type="button" mat-raised-button class="modal-cancel-button" (click)="closeModal()">Cancel</button>
+            </footer>
+    </form>
+</div>

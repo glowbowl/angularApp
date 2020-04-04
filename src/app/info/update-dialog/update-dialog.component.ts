@@ -37,6 +37,27 @@ export class UpdateDialogComponent implements OnInit {
         ]
       )
     });
+    this.UpdateForm.get("firstName").setValue(this.data.firstName);
+    this.UpdateForm.get("lastName").setValue(this.data.lastName);
+    this.UpdateForm.get("nickname").setValue(this.data.nickname);
+    this.UpdateForm.get("phone").setValue(this.data.phone);
+  }
+
+  onSubmit(value) {
+    //alert(`You have deleted it.`);
+    // console.log(`You have deleted it.`);
+    // this.dialogRef.close();
+    // window.location.reload();
+    // this.auth.deleteUser(this.data.userUid);
+    //console.log(value.firstName);
+    this.auth.updateUser(this.data.uid, value);
+    console.log(`You have updated main info.`);
+    this.dialogRef.close();
+    //window.location.reload();
+  }
+
+  closeModal() {
+    this.dialogRef.close();
   }
 
   get firstName() {
@@ -55,5 +76,5 @@ export class UpdateDialogComponent implements OnInit {
     return this.UpdateForm.get("phone");
   }
 
-  onSubmit(value) {}
+  //onSubmit(value) {}
 }

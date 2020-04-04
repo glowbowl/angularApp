@@ -114,12 +114,13 @@ export class InfoComponent implements OnInit {
   updateDialogMain(value) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
-    dialogConfig.width = "300px";
+    dialogConfig.width = "325px";
     dialogConfig.data = {
       firstName: value.firstName,
       lastName: value.lastName,
       nickname: value.nickname,
-      phone: value.phone
+      phone: value.phone,
+      uid: value.uid
     };
     const modalDialog = this.dialog.open(
       UpdateDialogComponent, 
@@ -130,11 +131,13 @@ export class InfoComponent implements OnInit {
   updateDialogAdditional(value) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
+    dialogConfig.width = "325px";
     dialogConfig.data = {
       addressType: value.addressType,
       country: value.country,
       postalCode: value.postalCode,
-      address: value.address
+      address: value.address,
+      uid: value.uid
     };
     const modalDialog = this.dialog.open(
       UpdateAdditionalComponent,

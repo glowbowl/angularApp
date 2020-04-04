@@ -1,41 +1,46 @@
-.modal-content-wrapper {
-    width: 100%;
-    height: 100%;
-}
-
-.modal-title {
-    font-size: 22px;
-}
-
-.modal-footer {
-    justify-self: right;
-    align-self: center;
-}
-
-button{
-    box-shadow: 0px 1px 5px #27272780;
-    margin: 0 5px;
-    border-radius: 10px;
-    border-color: transparent;
-    cursor: pointer;
-    border-width: 1px;
-    border-style: solid;
-    outline: 0;
-    font-family: inherit;
-}
-
-.modal-action-button {
-    background:darken(tomato,5%);
-    color: white;
-    &:hover{
-        background: darken(tomato,15%);
+.container{
+    //border-radius: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // justify-self: center;
+    // align-self: center;
+    .modal-title {
+        font-size: 22px;
+        margin-top: 0;
     }
-}
-
-.modal-cancel-button {
-    background: white;
-    color: black;
-    &:hover{
-        background: darken(white,15%);
+    .field{
+        .text-danger{
+            color: red;
+            margin-bottom: 10px;
+        }
+    }
+    button{
+        box-shadow: 0px 1px 5px #27272780;
+        margin: 0 5px;
+        border-radius: 10px;
+        border-color: transparent;
+        cursor: pointer;
+        border-width: 1px;
+        border-style: solid;
+        outline: 0;
+        font-family: inherit;
+    }
+    
+    .modal-action-button {
+        background:#28d;
+        color: white;
+        &:hover{
+            background: darken(#28d,15%);
+        }
+    }
+    
+    .modal-cancel-button {
+        background: white;
+        color: black;
+        &:hover{
+            background: darken(white,15%);
+        }
     }
 }

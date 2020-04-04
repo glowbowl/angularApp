@@ -16,6 +16,20 @@ export interface UserSignIn {
     email: string;
 }
 
+export interface UserUpdate {
+    firstName: string;
+    lastName: string;
+    nickname: string;
+    phone: string;
+}
+
+export interface UserAdditionalUpdate {
+    addressType: string;
+    address: string;
+    country: string;
+    postalCode: string;
+}
+
 // export namespace CountriesNamespace{
 //     export interface country{
 //         name: string;
