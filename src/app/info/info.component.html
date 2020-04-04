@@ -27,8 +27,8 @@
                         </div>
                         
                         <div class="field-btn">
-                            <button (click)="resetForm(); false">Clear</button>
-                            <button type="submit" [disabled]="(!nickname.valid && !phone.valid) || (!nickname.valid && !email.valid) || (!phone.valid && !email.valid)">Find</button>
+                            <button mat-button (click)="resetForm(); false">Clear</button>
+                            <button mat-button type="submit" [disabled]="(!nickname.valid && !phone.valid) || (!nickname.valid && !email.valid) || (!phone.valid && !email.valid)">Find</button>
                         </div>
                     </div>
                 </div>
@@ -73,8 +73,8 @@
                         <td (click)="additionalTable()">{{ searchedUser.phone }}</td>
                         <td (click)="additionalTable()">{{ searchedUser.email }}</td>
                         <td class="not-clickable">
-                            <button (click)="update(searchedUser.uid)">Update</button>
-                            <button (click)="delete(searchedUser.uid)">Delete</button>
+                            <button mat-button (click)="updateDialogMain(searchedUser)">Update</button>
+                            <button mat-button class="deleteBtn" (click)="deleteConfirm(searchedUser.uid)">Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -94,8 +94,8 @@
                         <td>{{ searchedUser.postalCode }}</td>
                         <td>{{ searchedUser.address }}</td>
                         <td>
-                            <button (click)="update(searchedUser.uid)">Update</button>
-                            <button (click)="delete(searchedUser.uid)">Delete</button>
+                            <button mat-button (click)="updateDialogAdditional(searchedUser)">Update</button>
+                            <button mat-button class="deleteBtn" (click)="deleteConfirm(searchedUser.uid)">Delete</button>
                         </td>
                     </tr>
                 </tbody>

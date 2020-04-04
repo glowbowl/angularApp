@@ -102,7 +102,6 @@
                         cursor: pointer;
                         border-width: 1px;
                         border-style: solid;
-                        padding: 16px;
                         outline: 0;
                         font-family: inherit;
                         &:hover{
@@ -126,7 +125,7 @@
         margin: 25px 0;
         .primary-table{
             //border-radius: 15px;
-            box-shadow: 0px 3px 5px #27272780;
+            box-shadow: 0px 1px 4px #27272780;
             background-color: darken(white, 2%);
     
             .table-names{
@@ -142,6 +141,13 @@
             }
             td{
                 padding: 10px 25px;
+                .deleteBtn{
+                    color: white;
+                    background:darken(tomato,5%);
+                    &:hover{
+                        background: darken(tomato,15%);
+                    }
+                }
             }
             button{
                 box-shadow: 0px 1px 5px #27272780;
@@ -153,7 +159,6 @@
                 cursor: pointer;
                 border-width: 1px;
                 border-style: solid;
-                padding: 10px;
                 outline: 0;
                 font-family: inherit;
                 &:hover{

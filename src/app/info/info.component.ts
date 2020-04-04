@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
-import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 
-import { AngularFirestore} from '@angular/fire/firestore';
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { DeleteDialogComponent } from "./delete-dialog/delete-dialog.component";
+import { UpdateDialogComponent } from "./update-dialog/update-dialog.component";
+import { UpdateAdditionalComponent } from "./update-additional/update-additional.component";
 
 @Component({
-  selector: 'app-info',
-  templateUrl: './info.component.html',
-  styleUrls: ['./info.component.scss']
+  selector: "app-info",
+  templateUrl: "./info.component.html",
+  styleUrls: ["./info.component.scss"]
 })
 export class InfoComponent implements OnInit {
   SearchForm: FormGroup;
@@ -19,9 +22,7 @@ export class InfoComponent implements OnInit {
   closed: Boolean = false;
   additional: Boolean = false;
 
-  constructor(public auth: AuthService, afs: AngularFirestore) { 
-    
-  }
+  constructor(public auth: AuthService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     let item = this.auth.getAll();
@@ -68,11 +69,17 @@ export class InfoComponent implements OnInit {
   onSubmit(value) {
     let uid;
     for (let i = 0; i < this.allUsers.length; i++) {
-      if ( (value.nickname === this.allUsers[i]["nickname"] && value.phone === this.allUsers[i]["phone"]) ||
-            (value.nickname === this.allUsers[i]["nickname"] && value.email === this.allUsers[i]["email"]) ||
-            (value.phone === this.allUsers[i]["phone"] && value.email === this.allUsers[i]["email"]) ||
-            (value.nickname === this.allUsers[i]["nickname"] && value.phone === this.allUsers[i]["phone"] && value.email === this.allUsers[i]["email"])
-      ){
+      if (
+        (value.nickname === this.allUsers[i]["nickname"] &&
+          value.phone === this.allUsers[i]["phone"]) ||
+        (value.nickname === this.allUsers[i]["nickname"] &&
+          value.email === this.allUsers[i]["email"]) ||
+        (value.phone === this.allUsers[i]["phone"] &&
+          value.email === this.allUsers[i]["email"]) ||
+        (value.nickname === this.allUsers[i]["nickname"] &&
+          value.phone === this.allUsers[i]["phone"] &&
+          value.email === this.allUsers[i]["email"])
+      ) {
         uid = this.allUsers[i]["uid"];
         break;
       }
@@ -91,21 +98,61 @@ export class InfoComponent implements OnInit {
     this.additional = !this.additional;
   }
 
-  resetForm(){
+  resetForm() {
     this.additional = false;
     this.closed = true;
     this.SearchForm.reset({});
   }
 
-  update(uid){
+  update(uid) {
     let item = this.auth.getUser(uid);
     item.subscribe(snapshot => {
       console.log(snapshot);
     });
   }
 
-  delete(uid){
-    this.auth.deleteUser(uid);
+  updateDialogMain(value) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.data = {
+      firstName: value.firstName,
+      lastName: value.lastName,
+      nickname: value.nickname,
+      phone: value.phone
+    };
+    const modalDialog = this.dialog.open(
+      UpdateDialogComponent, 
+      dialogConfig
+    );
   }
 
+  updateDialogAdditional(value) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.data = {
+      addressType: value.addressType,
+      country: value.country,
+      postalCode: value.postalCode,
+      address: value.address
+    };
+    const modalDialog = this.dialog.open(
+      UpdateAdditionalComponent,
+      dialogConfig
+    );
+  }
+
+  deleteConfirm(uid): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.data = {
+      userUid: uid
+    };
+    const modalDialog = this.dialog.open(
+      DeleteDialogComponent, 
+      dialogConfig
+    );
+    // modalDialog.afterClosed().subscribe(result => {
+    //   console.log("Closed");
+    // });
+  }
 }

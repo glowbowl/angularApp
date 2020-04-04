@@ -17,11 +17,16 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     let item = this.auth.getAll();
     item.subscribe(snapshot => {
-      for (let i = 0; i < snapshot.length; i++) {
-        if ( this.auth.userData.uid === snapshot[i]["uid"]) {
-          this.name = snapshot[i]["firstName"];
-          break;
+      if (snapshot != undefined){
+        for (let i = 0; i < snapshot.length; i++) {
+          if ( this.auth.userData.uid === snapshot[i]["uid"]) {
+            this.name = snapshot[i]["firstName"];
+            break;
+          }
         }
+      }
+      else{
+        this.name = null;
       }
     });
   }
