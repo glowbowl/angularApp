@@ -21,7 +21,7 @@
                         <small *ngIf="email.errors?.pattern">Please provide a valid email address</small>
                     </div>
             
-                    <label for="passOption">Password:</label><br>
+                    <label for="passOption">Password:</label>
                     <input [ngClass]="{ 'is-invalid': password.invalid && password.touched }" type="password"
                                 placeholder="Password" id="passOption" formControlName="password">
                     <div *ngIf="(password.invalid && password.touched) || password.dirty" class="text-danger">
