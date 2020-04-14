@@ -8,47 +8,68 @@ import { Countries } from '../../models/models';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
+import { CountryService } from "../../shared/services/country.service";
+
 @Component({
   selector: "app-update-additional",
   templateUrl: "./update-additional.component.html",
   styleUrls: ["./update-additional.component.scss"]
 })
 export class UpdateAdditionalComponent implements OnInit {
-  allCountries: Countries;
+
+  allCountries: Countries[];
+  //Form Variables
   UpdateForm: FormGroup;
+  addressType: FormControl;
+  address: FormControl;
+  country: FormControl;
+  postalCode: FormControl;
 
   constructor(
-    private http: HttpClient,
+    private countryService: CountryService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<UpdateAdditionalComponent>,
     public auth: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+
+    this.createFormControl();
+    this.createFormGroup();
+
+    this.countryService.loadCountries()
+      .subscribe(res => {
+        if (res) {
+          this.allCountries = res;
+        }
+      });
+    this.addressType.setValue(this.data.addressType);
+    this.address.setValue(this.data.address);
+    this.country.setValue(this.data.country);
+    this.postalCode.setValue(this.data.postalCode);
+  }
+
+  createFormControl() {
+    this.addressType = new FormControl([null], Validators.required);
+    this.address = new FormControl([null], Validators.required);
+    this.country = new FormControl([null], Validators.required);
+    this.postalCode = new FormControl(
+      [null],
+      [
+        Validators.required,
+        Validators.pattern("^[0-9]*$"),
+        Validators.minLength(4)
+      ]
+    );
+  }
+
+  createFormGroup() {
     this.UpdateForm = new FormGroup({
-      addressType: new FormControl([null], Validators.required),
-      address: new FormControl([null], Validators.required),
-      country: new FormControl([null], Validators.required),
-      postalCode: new FormControl(
-        [null],
-        [
-          Validators.required,
-          Validators.pattern("^[0-9]*$"),
-          Validators.minLength(4)
-        ]
-      )
+      addressType: this.addressType,
+      address: this.address,
+      country: this.country,
+      postalCode: this.postalCode
     });
-    this.http
-    .get<any>("https://restcountries.eu/rest/v2/all")
-    .subscribe(res => {
-      if (res) {
-        this.allCountries = res;
-      }
-    });
-    this.UpdateForm.get("addressType").setValue(this.data.addressType);
-    this.UpdateForm.get("address").setValue(this.data.address);
-    this.UpdateForm.get("country").setValue(this.data.country);
-    this.UpdateForm.get("postalCode").setValue(this.data.postalCode);
   }
 
   onSubmit(value) {
@@ -60,21 +81,5 @@ export class UpdateAdditionalComponent implements OnInit {
 
   closeModal() {
     this.dialogRef.close();
-  }
-
-  get addressType() {
-    return this.UpdateForm.get("addressType");
-  }
-
-  get address() {
-    return this.UpdateForm.get("address");
-  }
-
-  get country() {
-    return this.UpdateForm.get("country");
-  }
-
-  get postalCode() {
-    return this.UpdateForm.get("postalCode");
   }
 }

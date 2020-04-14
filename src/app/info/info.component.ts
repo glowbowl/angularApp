@@ -115,6 +115,7 @@ export class InfoComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = "325px";
+    dialogConfig.autoFocus = false;
     dialogConfig.data = {
       firstName: value.firstName,
       lastName: value.lastName,
@@ -132,6 +133,7 @@ export class InfoComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = "325px";
+    dialogConfig.autoFocus = false;
     dialogConfig.data = {
       addressType: value.addressType,
       country: value.country,

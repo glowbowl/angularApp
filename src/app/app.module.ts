@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
@@ -23,12 +25,13 @@ import { MainComponent } from './main/main.component';
 import { InfoComponent } from './info/info.component';
 import { CreateComponent } from './create/create.component';
 import { LoginComponent } from './login/login.component';
-
-import { AuthService } from "./shared/services/auth.service";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DeleteDialogComponent } from './info/delete-dialog/delete-dialog.component';
 import { UpdateDialogComponent } from './info/update-dialog/update-dialog.component';
 import { UpdateAdditionalComponent } from './info/update-additional/update-additional.component';
+
+import { AuthService } from "./shared/services/auth.service";
+import { CountryService } from "./shared/services/country.service";
+
 
 @NgModule({
   declarations: [
@@ -62,7 +65,7 @@ import { UpdateAdditionalComponent } from './info/update-additional/update-addit
     UpdateDialogComponent,
     UpdateAdditionalComponent
   ],
-  providers: [AuthService],
+  providers: [AuthService, CountryService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
