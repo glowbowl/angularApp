@@ -3,8 +3,7 @@ import { FormControl, Validators, FormGroup } from "@angular/forms";
 import { AuthService } from "../../shared/services/auth.service";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
-import { HttpClient } from '@angular/common/http';
-import { Countries } from '../../models/models';
+import { Country } from '../../models/models';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
@@ -17,7 +16,7 @@ import { CountryService } from "../../shared/services/country.service";
 })
 export class UpdateAdditionalComponent implements OnInit {
 
-  allCountries: Countries[];
+  allCountries: Country;
   //Form Variables
   UpdateForm: FormGroup;
   addressType: FormControl;
@@ -37,12 +36,12 @@ export class UpdateAdditionalComponent implements OnInit {
     this.createFormControl();
     this.createFormGroup();
 
-    this.countryService.loadCountries()
-      .subscribe(res => {
-        if (res) {
-          this.allCountries = res;
-        }
-      });
+    // this.countryService.loadCountries()
+    //   .subscribe(res => {
+    //     if (res) {
+    //       this.allCountries = res;
+    //     }
+    //   });
     this.addressType.setValue(this.data.addressType);
     this.address.setValue(this.data.address);
     this.country.setValue(this.data.country);

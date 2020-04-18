@@ -16,6 +16,11 @@ export interface UserSignIn {
     email: string;
 }
 
+export interface LoginModel {
+    email: string;
+    password: string;
+}
+
 export interface UserUpdate {
     firstName: string;
     lastName: string;
@@ -67,6 +72,10 @@ export interface RegionalBloc {
     name: string;
     otherAcronyms: string[];
     otherNames: string[];
+}
+
+export interface Country {
+    name: string;
 }
 
 export interface Countries {

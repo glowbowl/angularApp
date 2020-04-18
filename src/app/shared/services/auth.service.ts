@@ -53,7 +53,6 @@ export class AuthService {
     async SignIn(email, password) {
         try {
             const result = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-            this.SetUserDataSignIn(result.user);
             this.router.navigate(['']);
         }
         catch (error) {
@@ -119,10 +118,6 @@ export class AuthService {
             lastName: value.lastName,
             nickname: value.nickname,
             phone: value.phone,
-            // addressType: value.nickname,
-            // address: value.address,
-            // country: value.country,
-            // postalCode: value.postalCode,
         }
         return userRef.set(userData, {
             merge: true
@@ -144,7 +139,7 @@ export class AuthService {
 
     async SignOut() {
         try{
-            //window.location.reload();
+            window.location.reload();
             await this.afAuth.auth.signOut();
             localStorage.removeItem('user');
         }

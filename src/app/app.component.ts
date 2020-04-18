@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from './shared/services/auth.service';
 import { Router } from "@angular/router";
+import { Store } from "@ngxs/store";
+import { LogoutUser } from "./store/action/loginUser.action"
 
 @Component({
   selector: "app-root",
@@ -12,12 +14,11 @@ export class AppComponent {
   constructor(
     public router: Router,
     public auth: AuthService,
+    private store: Store
   ){
   }
 
   signOut(){
-    this.auth.SignOut().then(() => {
-      window.location.reload();
-      })
+    this.store.dispatch(new LogoutUser);
   }
 }

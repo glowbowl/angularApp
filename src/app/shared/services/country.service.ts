@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Countries } from '../../models/models';
+import { Country } from '../../models/models';
 import { Observable } from 'rxjs';
 import { shareReplay, map } from "rxjs/operators";
 
@@ -14,9 +14,9 @@ export class CountryService {
         private http: HttpClient
     ) { }
 
-    loadCountries(): Observable<Countries[]> {
+    loadCountries(): Observable<Country[]> {
         return this.http
-            .get<Countries[]>("https://restcountries.eu/rest/v2/all")
+            .get<Country[]>("https://restcountries.eu/rest/v2/all")
             .pipe(
                 shareReplay());
     }

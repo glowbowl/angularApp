@@ -1,8 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Countries } from '../models/models';
+import { Country } from '../models/models';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 import { AuthService } from "../shared/services/auth.service";
 import { CountryService } from "../shared/services/country.service";
+import { Store } from '@ngxs/store';
+import { GetCountries } from "../store/action/countries.action"
 
 @Component({
   selector: "app-create",
@@ -10,7 +12,7 @@ import { CountryService } from "../shared/services/country.service";
   styleUrls: ["./create.component.scss"]
 })
 export class CreateComponent implements OnInit {
-  allCountries: Countries[];
+  allCountries: Country;
 
   //Form Variables
   ProfileForm: FormGroup;
@@ -32,6 +34,7 @@ export class CreateComponent implements OnInit {
   submitted: boolean = false;
 
   constructor(
+    private store: Store,
     private countryService: CountryService,
     public authService: AuthService,
   ) { }
@@ -41,12 +44,14 @@ export class CreateComponent implements OnInit {
     this.createFormControl();
     this.createFormGroup()
 
-    this.countryService.loadCountries()
-      .subscribe(res => {
-        if (res) {
-          this.allCountries = res;
-        }
-      });
+    this.store.dispatch(new GetCountries());
+    this.store.subscribe(res => this.allCountries = res.countries.countries);
+    // this.countryService.loadCountries()
+    //   .subscribe(res => {
+    //     if (res) {
+    //       this.allCountries = res;
+    //     }
+    //   });
   }
 
   createFormControl() {
