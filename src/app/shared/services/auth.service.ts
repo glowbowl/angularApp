@@ -76,16 +76,16 @@ export class AuthService {
         return (user !== null) ? true : false;
     }
 
-    SetUserDataSignIn(user) {
-        const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-        const userData: UserSignIn = {
-            uid: user.uid,
-            email: user.email,
-        }
-        return userRef.set(userData, {
-            merge: true
-        })
-    }
+    // SetUserDataSignIn(user) {
+    //     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    //     const userData: UserSignIn = {
+    //         uid: user.uid,
+    //         email: user.email,
+    //     }
+    //     return userRef.set(userData, {
+    //         merge: true
+    //     })
+    // }
 
     SetUserDataSignUp(user, value) {
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);

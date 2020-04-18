@@ -35,7 +35,6 @@ export class CreateComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private countryService: CountryService,
     public authService: AuthService,
   ) { }
 
@@ -44,7 +43,6 @@ export class CreateComponent implements OnInit {
     this.createFormControl();
     this.createFormGroup()
 
-    this.store.dispatch(new GetCountries());
     this.store.subscribe(res => this.allCountries = res.countries.countries);
     // this.countryService.loadCountries()
     //   .subscribe(res => {

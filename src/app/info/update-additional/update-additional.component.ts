@@ -4,6 +4,8 @@ import { AuthService } from "../../shared/services/auth.service";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { Country } from '../../models/models';
+import { Store } from '@ngxs/store';
+import { GetCountries } from "../../store/action/countries.action"
 
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
@@ -25,6 +27,7 @@ export class UpdateAdditionalComponent implements OnInit {
   postalCode: FormControl;
 
   constructor(
+    private store: Store,
     private countryService: CountryService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<UpdateAdditionalComponent>,
@@ -35,6 +38,8 @@ export class UpdateAdditionalComponent implements OnInit {
 
     this.createFormControl();
     this.createFormGroup();
+
+    this.store.subscribe(res => this.allCountries = res.countries.countries);
 
     // this.countryService.loadCountries()
     //   .subscribe(res => {

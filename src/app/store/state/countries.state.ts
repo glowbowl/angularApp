@@ -21,12 +21,14 @@ export class CountriesState {
 
     @Action(GetCountries)
     GetCountries(ctx: StateContext<CountryModel>) {
-        this.countryService.loadCountries().subscribe( res => {
-            if (res){
-                const countries = res;
-                ctx.setState({...ctx, countries});
-            }
-        });
+        if (ctx.getState() === null){
+            this.countryService.loadCountries().subscribe( res => {
+                if (res){
+                    const countries = res;
+                    ctx.setState({...ctx, countries});
+                }
+            });
+        }
     }
 
 }

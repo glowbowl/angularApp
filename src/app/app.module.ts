@@ -15,6 +15,7 @@ import { environment } from "../environments/environment";
 import { NgxsModule } from "@ngxs/store";
 import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner"
 import { MatInputModule } from "@angular/material/input";
@@ -75,7 +76,8 @@ import { UserState } from "./store/state/user.state";
       LoginUserState,
       //UserState,
       CountriesState,
-    ], { developmentMode: !environment.production }),
+    ], { developmentMode: !environment.production }), 
+    NgxsStoragePluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
   ],
