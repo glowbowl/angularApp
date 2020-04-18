@@ -1,6 +1,6 @@
 import { UserSignUp} from "../../models/models";
 
-export class loadAllUsers {
+export class LoadAllUsers {
     static readonly type = '[Users] Load All Users';
 }
 
