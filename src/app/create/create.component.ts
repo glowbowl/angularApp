@@ -2,9 +2,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Country } from '../models/models';
 import { FormControl, Validators, FormGroup, FormArray } from '@angular/forms';
 import { AuthService } from "../shared/services/auth.service";
-import { CountryService } from "../shared/services/country.service";
 import { Store } from '@ngxs/store';
-import { GetCountries } from "../store/action/countries.action"
+import { CreateUserLogin } from "../store/action/loginUser.action";
 
 @Component({
   selector: "app-create",
@@ -122,6 +121,8 @@ export class CreateComponent implements OnInit {
 
   onSubmit() {
     this.authService.SignUp(this.ProfileForm.value.email, this.ProfileForm.value.password, this.ProfileForm.value);
+    //const UserLogin = { this.ProfileForm.value.email}
+    this.store.dispatch(new CreateUserLogin(this.ProfileForm.value));
   }
 
 

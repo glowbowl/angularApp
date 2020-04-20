@@ -5,11 +5,10 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { Country } from '../../models/models';
 import { Store } from '@ngxs/store';
-import { GetCountries } from "../../store/action/countries.action"
 
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
-import { CountryService } from "../../shared/services/country.service";
+import { LoadAllUsers } from "../../store/action/user.action";
 
 @Component({
   selector: "app-update-additional",
@@ -28,7 +27,6 @@ export class UpdateAdditionalComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private countryService: CountryService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<UpdateAdditionalComponent>,
     public auth: AuthService
@@ -41,12 +39,6 @@ export class UpdateAdditionalComponent implements OnInit {
 
     this.store.subscribe(res => this.allCountries = res.countries.countries);
 
-    // this.countryService.loadCountries()
-    //   .subscribe(res => {
-    //     if (res) {
-    //       this.allCountries = res;
-    //     }
-    //   });
     this.addressType.setValue(this.data.addressType);
     this.address.setValue(this.data.address);
     this.country.setValue(this.data.country);
@@ -80,6 +72,7 @@ export class UpdateAdditionalComponent implements OnInit {
     this.auth.updateAdditionalUser(this.data.uid, value);
     console.log(value);
     console.log(`You have updated additional info.`);
+    this.store.dispatch(new LoadAllUsers());
     this.dialogRef.close();
   }
 

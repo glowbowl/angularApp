@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 
-import { Store, Select} from "@ngxs/store";
+import { Store, Select } from "@ngxs/store";
 import { LoadAllUsers } from "../store/action/user.action"
 import { UserState } from "../store/state/user.state";
+import { LoginUserState } from "../store/state/loginUser.state";
 
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { DeleteDialogComponent } from "./delete-dialog/delete-dialog.component";
@@ -12,6 +13,7 @@ import { UpdateDialogComponent } from "./update-dialog/update-dialog.component";
 import { UpdateAdditionalComponent } from "./update-additional/update-additional.component";
 import { Observable } from 'rxjs';
 import { UserSignUp } from '../models/models';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: "app-info",
@@ -29,8 +31,13 @@ export class InfoComponent implements OnInit {
   additional: Boolean = false;
 
   @Select(UserState.getAllUsers) allUsersList: Observable<UserSignUp[]>;
+  @Select(LoginUserState.getCurrentUserEmail) currentUserEmail$: Observable<string>;
 
-  constructor(public auth: AuthService, public dialog: MatDialog, private store: Store) { }
+  constructor(
+    public auth: AuthService,
+    public dialog: MatDialog,
+    private store: Store) {
+    }
 
   ngOnInit(): void {
 
@@ -138,6 +145,10 @@ export class InfoComponent implements OnInit {
       UpdateDialogComponent,
       dialogConfig
     );
+    modalDialog.afterClosed().subscribe(result => {
+      console.log("Closed");
+      this.store.dispatch(new LoadAllUsers());
+    });
   }
 
   updateDialogAdditional(value) {
@@ -156,6 +167,10 @@ export class InfoComponent implements OnInit {
       UpdateAdditionalComponent,
       dialogConfig
     );
+    modalDialog.afterClosed().subscribe(result => {
+      console.log("Closed");
+      this.store.dispatch(new LoadAllUsers());
+    });
   }
 
   deleteConfirm(uid): void {
@@ -168,8 +183,9 @@ export class InfoComponent implements OnInit {
       DeleteDialogComponent,
       dialogConfig
     );
-    // modalDialog.afterClosed().subscribe(result => {
-    //   console.log("Closed");
-    // });
+    modalDialog.afterClosed().subscribe(result => {
+      console.log("Closed");
+      this.store.dispatch(new LoadAllUsers());
+    });
   }
 }

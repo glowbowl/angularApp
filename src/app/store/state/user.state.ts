@@ -1,21 +1,21 @@
 import { Injectable } from "@angular/core";
 import { State, Action, StateContext, Selector } from "@ngxs/store";
 import { UserSignUp } from "../../models/models";
-import { LoadAllUsers, CreateUser } from "../action/user.action";
+import { LoadAllUsers, CurrentUser, ClearUsers } from "../action/user.action";
 import { AuthService } from "../../shared/services/auth.service";
-import { tap, take, map } from "rxjs/operators";
+import { tap, take, map, findIndex } from "rxjs/operators";
 import { from } from "rxjs";
 
 export class UserStateModel {
     users: UserSignUp[];
-    createUser: UserSignUp;
+    currentUser: UserSignUp;
 }
 
 @State<UserStateModel>({
     name: "UserState",
     defaults: {
         users:[],
-        createUser: null,
+        currentUser: null,
     }
 })
 @Injectable()
@@ -30,26 +30,48 @@ export class UserState {
         return state.users;
     }
 
+    @Selector()
+    static getCurrentUserData(state: UserStateModel) {
+        return (email: string) => {
+            return state.users.filter(user =>  user.email === email )
+        };
+    }
+
     @Action(LoadAllUsers)
     LoadAllUsers(ctx: StateContext<UserStateModel>) {
-        return this.auth.getAll().pipe(
+        // return this.auth.getAll().pipe(
+        //     tap(res => {
+        //         const state = ctx.getState();
+        //         ctx.setState({...state, users: res});
+        //     })
+        // );
+        if (ctx.getState().users === null) {
+            this.auth.getAll().subscribe(res => {
+                if (res) {
+                    const state = ctx.getState();
+                    const loadedUsers = res;
+                    ctx.patchState({ ...state, users: loadedUsers });
+                }
+            });
+        }
+    }
+
+    @Action(CurrentUser)
+    CurrentUser(ctx: StateContext<UserStateModel>, action: CurrentUser){
+        return this.auth.getUser(action.payload.uid).pipe(
             tap(res => {
-                ctx.patchState({...ctx, users: res});
+                const state = ctx.getState();
+                ctx.setState({ ...state, currentUser: res });
             })
         );
     }
 
-    @Action(CreateUser)
-    CreateUser(ctx: StateContext<UserStateModel>, action: CreateUser){
-        from(this.auth.SignUp(action.payload.email, action.payload.password, action.payload))
-        //return from(this.auth.SignUp(action.payload.email, action.payload.password, action.payload))//.pipe(
-            //tap(res => {
-                ctx.patchState({
-                    ...ctx,
-                    createUser: action.payload
-                });
-            //})
-        //);
+    @Action(ClearUsers)
+    ClearUsers(ctx: StateContext<UserStateModel>){
+        ctx.setState({
+            users: null,
+            currentUser: null,
+        });
     }
 
 }

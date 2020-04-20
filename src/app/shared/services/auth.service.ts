@@ -79,17 +79,6 @@ export class AuthService {
         return (user !== null) ? true : false;
     }
 
-    // SetUserDataSignIn(user) {
-    //     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    //     const userData: UserSignIn = {
-    //         uid: user.uid,
-    //         email: user.email,
-    //     }
-    //     return userRef.set(userData, {
-    //         merge: true
-    //     })
-    // }
-
     SetUserDataSignUp(user, value) {
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
         const userData: UserSignUp = {
@@ -108,10 +97,6 @@ export class AuthService {
         return userRef.set(userData, {
             merge: true
         })
-    }
-
-    getUserData() {
-        return this.afs.collection(`users`).snapshotChanges();
     }
 
     updateUser(userId, value) {
@@ -143,8 +128,8 @@ export class AuthService {
     async SignOut() {
         try{
             window.location.reload();
-            await this.afAuth.auth.signOut();
             localStorage.removeItem('user');
+            await this.afAuth.auth.signOut();
         }
         catch(error){
             window.alert(error.message);

@@ -3,6 +3,7 @@ import { AuthService } from './shared/services/auth.service';
 import { Router } from "@angular/router";
 import { Store } from "@ngxs/store";
 import { LogoutUser } from "./store/action/loginUser.action"
+import { ClearUsers } from "./store/action/user.action"
 
 @Component({
   selector: "app-root",
@@ -20,5 +21,6 @@ export class AppComponent {
 
   signOut(){
     this.store.dispatch(new LogoutUser);
+    this.store.dispatch(new ClearUsers);
   }
 }

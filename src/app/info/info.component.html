@@ -33,29 +33,6 @@
                     </div>
                 </div>
             </form>
-            <div class="table">
-                <tbody class="primary-table">
-                    <tr class="table-names">
-                        <td>First Name</td>
-                        <td>Last Name</td>
-                        <td>Nickname</td>
-                        <td>Phone</td>
-                        <td>Email</td>
-                        <td>Action</td>
-                    </tr>
-                    <tr *ngFor="let user of allUsersList | async">
-                        <td>{{ user.firstName }}</td>
-                        <td>{{ user.lastName }}</td>
-                        <td>{{ user.nickname }}</td>
-                        <td>{{ user.phone }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>
-                            <button (click)="update(user.uid)">Update</button>
-                            <button (click)="delete(user.uid)">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </div>
             <div class="table" *ngIf="searched && !closed">
                 <tbody class="primary-table">
                     <tr class="table-names">
@@ -97,6 +74,24 @@
                             <button mat-button (click)="updateDialogAdditional(searchedUser)">Update</button>
                             <button mat-button class="deleteBtn" (click)="deleteConfirm(searchedUser.uid)">Delete</button>
                         </td>
+                    </tr>
+                </tbody>
+            </div>
+            <div class="table">
+                <tbody class="primary-table">
+                    <tr class="table-names">
+                        <td>First Name</td>
+                        <td>Last Name</td>
+                        <td>Nickname</td>
+                        <td>Phone</td>
+                        <td>Email</td>
+                    </tr>
+                    <tr *ngFor="let user of allUsersList | async">
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.nickname }}</td>
+                        <td>{{ user.phone }}</td>
+                        <td>{{ user.email }}</td>
                     </tr>
                 </tbody>
             </div>

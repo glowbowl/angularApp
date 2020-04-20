@@ -16,6 +16,7 @@ import { NgxsModule } from "@ngxs/store";
 import { NgxsLoggerPluginModule } from "@ngxs/logger-plugin";
 import { NgxsReduxDevtoolsPluginModule } from "@ngxs/devtools-plugin";
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { NgxsResetPluginModule } from 'ngxs-reset-plugin';
 
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner"
 import { MatInputModule } from "@angular/material/input";

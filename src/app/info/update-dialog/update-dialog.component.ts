@@ -5,6 +5,9 @@ import { MatInputModule } from "@angular/material/input";
 
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
+import { Store } from "@ngxs/store";
+import { LoadAllUsers } from "../../store/action/user.action";
+
 @Component({
   selector: "app-update-dialog",
   templateUrl: "./update-dialog.component.html",
@@ -21,7 +24,8 @@ export class UpdateDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<UpdateDialogComponent>,
-    public auth: AuthService
+    public auth: AuthService,
+    private store: Store,
   ) { }
 
   ngOnInit(): void {
@@ -64,6 +68,7 @@ export class UpdateDialogComponent implements OnInit {
   onSubmit(value) {
     this.auth.updateUser(this.data.uid, value);
     console.log(`You have updated main info.`);
+    this.store.dispatch(new LoadAllUsers());
     this.dialogRef.close();
   }
 
