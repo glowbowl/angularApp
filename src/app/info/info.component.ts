@@ -2,10 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 
+import { Store, Select} from "@ngxs/store";
+import { LoadAllUsers } from "../store/action/user.action"
+import { UserState } from "../store/state/user.state";
+
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { DeleteDialogComponent } from "./delete-dialog/delete-dialog.component";
 import { UpdateDialogComponent } from "./update-dialog/update-dialog.component";
 import { UpdateAdditionalComponent } from "./update-additional/update-additional.component";
+import { Observable } from 'rxjs';
+import { UserSignUp } from '../models/models';
 
 @Component({
   selector: "app-info",
@@ -22,9 +28,14 @@ export class InfoComponent implements OnInit {
   closed: Boolean = false;
   additional: Boolean = false;
 
-  constructor(public auth: AuthService, public dialog: MatDialog) {}
+  @Select(UserState.getAllUsers) allUsersList: Observable<UserSignUp[]>;
+
+  constructor(public auth: AuthService, public dialog: MatDialog, private store: Store) { }
 
   ngOnInit(): void {
+
+    this.store.dispatch(new LoadAllUsers());
+
     let item = this.auth.getAll();
     item.subscribe(snapshot => {
       this.allUsers = snapshot;
@@ -124,7 +135,7 @@ export class InfoComponent implements OnInit {
       uid: value.uid
     };
     const modalDialog = this.dialog.open(
-      UpdateDialogComponent, 
+      UpdateDialogComponent,
       dialogConfig
     );
   }
@@ -154,7 +165,7 @@ export class InfoComponent implements OnInit {
       userUid: uid
     };
     const modalDialog = this.dialog.open(
-      DeleteDialogComponent, 
+      DeleteDialogComponent,
       dialogConfig
     );
     // modalDialog.afterClosed().subscribe(result => {

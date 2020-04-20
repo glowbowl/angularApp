@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </form>
-            <!-- <div class="table">
+            <div class="table">
                 <tbody class="primary-table">
                     <tr class="table-names">
                         <td>First Name</td>
@@ -43,7 +43,7 @@
                         <td>Email</td>
                         <td>Action</td>
                     </tr>
-                    <tr *ngFor="let user of allUsers">
+                    <tr *ngFor="let user of allUsersList | async">
                         <td>{{ user.firstName }}</td>
                         <td>{{ user.lastName }}</td>
                         <td>{{ user.nickname }}</td>
@@ -55,7 +55,7 @@
                         </td>
                     </tr>
                 </tbody>
-            </div> -->
+            </div>
             <div class="table" *ngIf="searched && !closed">
                 <tbody class="primary-table">
                     <tr class="table-names">

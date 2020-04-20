@@ -74,7 +74,7 @@ import { UserState } from "./store/state/user.state";
     MatProgressSpinnerModule,
     NgxsModule.forRoot([
       LoginUserState,
-      //UserState,
+      UserState,
       CountriesState,
     ], { developmentMode: !environment.production }), 
     NgxsStoragePluginModule.forRoot(),

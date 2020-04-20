@@ -120,8 +120,8 @@ export class CreateComponent implements OnInit {
   }
 
 
-  onSubmit(value) {
-    this.authService.SignUp(this.ProfileForm.value.email, this.ProfileForm.value.password, value);
+  onSubmit() {
+    this.authService.SignUp(this.ProfileForm.value.email, this.ProfileForm.value.password, this.ProfileForm.value);
   }
 
 

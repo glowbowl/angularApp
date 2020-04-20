@@ -1,4 +1,4 @@
-import { UserSignUp} from "../../models/models";
+import { CreateUserModel} from "../../models/models";
 
 export class LoadAllUsers {
     static readonly type = '[Users] Load All Users';
@@ -6,5 +6,5 @@ export class LoadAllUsers {
 
 export class CreateUser {
     static readonly type = '[Users] Create User';
-    constructor(public payload: UserSignUp){}
+    constructor(public payload: CreateUserModel){}
 }

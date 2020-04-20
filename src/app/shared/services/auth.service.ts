@@ -3,6 +3,7 @@ import { UserSignIn, UserSignUp, UserUpdate, UserAdditionalUpdate } from "../../
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -33,10 +34,11 @@ export class AuthService {
         })
     }
 
-    getUser(key: string) {
+    getUser(key: string):Observable<UserSignUp> {
         const itemPath = `${this.basePath}`;
-        this.item = this.afs.collection(itemPath).doc(`${key}`).valueChanges();
-        return this.item
+        //this.item = this.afs.collection(itemPath).doc(`${key}`).valueChanges();
+        //return this.item;
+        return this.afs.collection<UserSignUp>(itemPath).doc<UserSignUp>(`${key}`).valueChanges();
     }
 
     deleteUser(key: string){
@@ -44,10 +46,11 @@ export class AuthService {
         return this.afs.collection(userPath).doc(`${key}`).delete();
     }
 
-    getAll(){
+    getAll(): Observable<UserSignUp[]>{
         const itemPath = `${this.basePath}`;
-        this.item = this.afs.collection(itemPath).valueChanges();
-        return this.item
+        //this.item = this.afs.collection(itemPath).valueChanges();
+        //return this.item
+        return this.afs.collection<UserSignUp>(itemPath).valueChanges();
     }
 
     async SignIn(email, password) {
